@@ -7,14 +7,14 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
 
     list_display = (
-        "email", "username", "firstname",
-        "lastname", "phonenumber", "role",
+        "email", "username", "fullname",
+         "phonenumber", "role",
         "is_staff", "is_active"
     )
 
     search_fields = (
-        "email", "username", "firstname",
-        "lastname", "phonenumber"
+        "email", "username", "fullname",
+        "phonenumber"
     )
 
     list_filter = (
@@ -28,7 +28,7 @@ class CustomUserAdmin(UserAdmin):
         ("User Information", {
             "fields": (
                 ("email", "username"),
-                ("firstname", "lastname"),
+                ("fullname"),
                 ("phonenumber", "role"),
                 ("password",),
             )
@@ -53,7 +53,7 @@ class CustomUserAdmin(UserAdmin):
             "classes": ("wide",),
             "fields": (
                 ("email", "username"),
-                ("firstname", "lastname"),
+                ("fullname"),
                 ("phonenumber", "role"),
                 ("password1", "password2"),
                 ("is_active", "is_staff", "is_superuser"),

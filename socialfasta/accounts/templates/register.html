@@ -16,7 +16,63 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static "css/accounts/register.css" %}">
 <style>
-  
+  /* ---------- Unified auth-alert component (sawa na login.html / otp.html) ---------- */
+  .auth-alert{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--sf-radius-card);
+    font-size: 0.88rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    animation: authAlertIn 0.25s ease;
+  }
+  .auth-alert i{ font-size: 1.05rem; flex-shrink: 0; }
+  .auth-alert.d-none{ display: none; }
+
+  .auth-alert-success{
+    background-color: #EAFBF1;
+    border: 1px solid #B7EBC6;
+    color: #1E7A46;
+  }
+  .auth-alert-success i{ color: #22A35D; }
+
+  .auth-alert-error{
+    background-color: #FDECEC;
+    border: 1px solid #F5B8B8;
+    color: #B42318;
+  }
+  .auth-alert-error i{ color: #E23B3B; }
+
+  .auth-alert-warning{
+    background-color: #FFF7E6;
+    border: 1px solid #FCE3A8;
+    color: #92600A;
+  }
+  .auth-alert-warning i{ color: #D69E1F; }
+
+  @keyframes authAlertIn{
+    from{ opacity: 0; transform: translateY(-4px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Field-level error state (sawa na login.html) ---------- */
+  .form-control-sf.field-error{
+    border-color: var(--sf-accent);
+    box-shadow: 0 0 0 3px #FFEDE3;
+  }
+
+  /* ---------- Spinner ndani ya button ---------- */
+  .btn-sf-accent .spinner-border{
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
+  }
+  .btn-sf-accent:disabled{
+    opacity: 0.85;
+    cursor: not-allowed;
+  }
 </style>
 </head>
 <body>
@@ -85,11 +141,20 @@
           <h2>Create your account</h2>
           <p class="auth-form-sub">Already have an account? <a href="login.html" class="link-sf">Log in</a></p>
 
+          <!-- Alert moja tu ya pamoja: success / error / validation - sawa na login.html na otp.html -->
+          <div id="signupAlert" class="auth-alert d-none" role="alert"></div>
+
           <form action="#" method="post" novalidate id="signupForm">
+            {% csrf_token %}
 
             <div class="mb-3">
               <label for="fullName" class="form-label-sf">Full name</label>
               <input type="text" class="form-control form-control-sf" id="fullName" name="full_name" placeholder="e.g. Yusto Mwakifwamba" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="signupUsername" class="form-label-sf">Username</label>
+              <input type="text" class="form-control form-control-sf" id="signupUsername" name="username" placeholder="e.g. Mr Senior" required>
             </div>
 
             <div class="mb-3">
@@ -126,10 +191,10 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            {% comment %} <div class="mb-3">
               <label for="referralCode" class="form-label-sf">Referral code <span class="text-secondary fw-normal">(optional)</span></label>
               <input type="text" class="form-control form-control-sf" id="referralCode" name="referral_code" placeholder="e.g. FASTA-YM204">
-            </div>
+            </div> {% endcomment %}
 
             <div class="form-check mb-4">
               <input class="form-check-input" type="checkbox" id="agreeTerms" name="agree_terms" required>
@@ -138,7 +203,9 @@
               </label>
             </div>
 
-            <button type="submit" class="btn btn-sf-accent w-100 py-2 mb-3">Create Free Account</button>
+            <button type="submit" id="signupSubmitBtn" class="btn btn-sf-accent w-100 py-2 mb-3">
+              <span class="btn-label">Create Free Account</span>
+            </button>
 
             <div class="auth-divider">or sign up with</div>
 
@@ -161,7 +228,24 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // Password visibility toggles
+  // ---------- Element refs ----------
+  var fullNameInput    = document.getElementById('fullName');
+  var usernameInput    = document.getElementById('signupUsername');
+  var emailInput       = document.getElementById('signupEmail');
+  var phoneInput       = document.getElementById('phoneNumber');
+  var pwdInput         = document.getElementById('signupPassword');
+  var confirmPwdInput  = document.getElementById('confirmPassword');
+  var agreeTermsInput  = document.getElementById('agreeTerms');
+
+  var signupForm    = document.getElementById('signupForm');
+  var signupAlert   = document.getElementById('signupAlert');
+  var submitBtn     = document.getElementById('signupSubmitBtn');
+  var submitBtnLabel = submitBtn.querySelector('.btn-label');
+
+  var pwdBar   = document.getElementById('pwdStrengthBar');
+  var pwdLabel = document.getElementById('pwdStrengthLabel');
+
+  // ---------- Password visibility toggles ----------
   function wireToggle(btnId, inputId, iconId) {
     var btn = document.getElementById(btnId);
     var input = document.getElementById(inputId);
@@ -178,11 +262,7 @@
   wireToggle('toggleSignupPassword', 'signupPassword', 'toggleSignupIcon');
   wireToggle('toggleConfirmPassword', 'confirmPassword', 'toggleConfirmIcon');
 
-  // Simple password strength meter
-  var pwdInput = document.getElementById('signupPassword');
-  var pwdBar = document.getElementById('pwdStrengthBar');
-  var pwdLabel = document.getElementById('pwdStrengthLabel');
-
+  // ---------- Password strength meter ----------
   pwdInput.addEventListener('input', function () {
     var val = pwdInput.value;
     var score = 0;
@@ -199,26 +279,162 @@
       width = '0%';
       label = 'Use 8+ characters with a number and a symbol';
     } else if (score <= 1) {
-      width = '25%';
-      color = '#EF4444';
-      label = 'Weak password';
+      width = '25%'; color = '#EF4444'; label = 'Weak password';
     } else if (score === 2) {
-      width = '55%';
-      color = '#F5540E';
-      label = 'Could be stronger';
+      width = '55%'; color = '#F5540E'; label = 'Could be stronger';
     } else if (score === 3) {
-      width = '80%';
-      color = '#F59E0B';
-      label = 'Good password';
+      width = '80%'; color = '#F59E0B'; label = 'Good password';
     } else {
-      width = '100%';
-      color = '#15803D';
-      label = 'Strong password';
+      width = '100%'; color = '#15803D'; label = 'Strong password';
     }
 
     pwdBar.style.width = width;
     pwdBar.style.backgroundColor = color;
     pwdLabel.textContent = label;
+  });
+
+  // ---------- Alert helper (sawa na login.html / otp.html) ----------
+  function showAlert(type, message) {
+    signupAlert.classList.remove('d-none', 'auth-alert-success', 'auth-alert-error', 'auth-alert-warning');
+    var cls = type === 'success' ? 'auth-alert-success'
+            : type === 'warning' ? 'auth-alert-warning'
+            : 'auth-alert-error';
+    var icon = type === 'success' ? 'bi-check-circle-fill'
+             : type === 'warning' ? 'bi-exclamation-circle-fill'
+             : 'bi-exclamation-triangle-fill';
+    signupAlert.classList.add(cls);
+    signupAlert.innerHTML = '<i class="bi ' + icon + '"></i><span>' + message + '</span>';
+    signupAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function hideAlert() {
+    signupAlert.classList.add('d-none');
+  }
+
+  function setLoading(isLoading) {
+    submitBtn.disabled = isLoading;
+    if (isLoading) {
+      submitBtnLabel.innerHTML =
+        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Inaunda akaunti...';
+    } else {
+      submitBtnLabel.textContent = 'Create Free Account';
+    }
+  }
+
+  function getCookie(name) {
+    var value = '; ' + document.cookie;
+    var parts = value.split('; ' + name + '=');
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
+
+  // Futa field-error mtumiaji anapoanza kuandika tena
+  [fullNameInput, usernameInput, emailInput, phoneInput, pwdInput, confirmPwdInput].forEach(function (input) {
+    input.addEventListener('input', function () {
+      input.classList.remove('field-error');
+      hideAlert();
+    });
+  });
+
+  signupForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    var fullName = fullNameInput.value.trim();
+    var username = usernameInput.value.trim();
+    var email = emailInput.value.trim();
+    var phone = phoneInput.value.trim();
+    var password = pwdInput.value;
+    var confirmPassword = confirmPwdInput.value;
+
+    // reset field errors
+    [fullNameInput, usernameInput, emailInput, phoneInput, pwdInput, confirmPwdInput].forEach(function (i) {
+      i.classList.remove('field-error');
+    });
+
+    // ---------- Validation 1: fields zote za lazima zijazwe ----------
+    var requiredFields = [
+      { input: fullNameInput, value: fullName },
+      { input: usernameInput, value: username },
+      { input: emailInput, value: email },
+      { input: phoneInput, value: phone },
+      { input: pwdInput, value: password },
+      { input: confirmPwdInput, value: confirmPassword }
+    ];
+    var hasEmpty = false;
+    requiredFields.forEach(function (f) {
+      if (!f.value) {
+        f.input.classList.add('field-error');
+        hasEmpty = true;
+      }
+    });
+    if (hasEmpty) {
+      showAlert('warning', 'Tafadhali jaza fields zote kabla ya kuendelea.');
+      return;
+    }
+
+    // ---------- Validation 2: email sahihi ----------
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      emailInput.classList.add('field-error');
+      showAlert('warning', 'Weka email sahihi.');
+      return;
+    }
+
+    // ---------- Validation 3: password na confirm password zifanane ----------
+    if (password !== confirmPassword) {
+      pwdInput.classList.add('field-error');
+      confirmPwdInput.classList.add('field-error');
+      showAlert('warning', 'Password na Confirm Password hazifanani.');
+      return;
+    }
+
+    // ---------- Validation 4: password iwe na urefu wa kutosha ----------
+    if (password.length < 8) {
+      pwdInput.classList.add('field-error');
+      showAlert('warning', 'Password iwe angalau herufi 8.');
+      return;
+    }
+
+    // ---------- Validation 5: terms ---------
+    if (!agreeTermsInput.checked) {
+      showAlert('warning', 'Lazima ukubali Terms of Service na Privacy Policy.');
+      return;
+    }
+
+    hideAlert();
+    setLoading(true);
+
+    try {
+      const response = await fetch("{% url 'registration_api' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+          fullname: fullName,
+          username: username,
+          email: email,
+          phonenumber: phone,
+          password: password
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        showAlert('success', (data.message || 'Account registered successfully') + ' — Inakuelekeza...');
+        setTimeout(function () {
+          window.location.href = '/accounts/verify/'; // badilisha na url sahihi (mf. ukurasa wa OTP)
+        }, 1200);
+      } else {
+        showAlert('error', data.message || 'Imeshindikana kuunda akaunti. Jaribu tena.');
+        setLoading(false);
+      }
+    } catch (err) {
+      showAlert('error', 'Hitilafu ya mtandao imetokea. Tafadhali jaribu tena.');
+      setLoading(false);
+    }
   });
 </script>
 </body>

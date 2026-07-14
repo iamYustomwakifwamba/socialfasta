@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 
 class CustomUserManager(BaseUserManager):
 
-    def _create_user(self, email, phonenumber=None, firstname=None, lastname=None, username=None, password=None, **extra_fields):
+    def _create_user(self, email, phonenumber=None, fullname=None, username=None, password=None, **extra_fields):
         
         if not email:
             raise ValueError("Email must be set")
@@ -14,8 +14,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=email,
             phonenumber=phonenumber,
-            firstname=firstname,
-            lastname=lastname,
+            fullname=fullname,
             username=username,
             **extra_fields
         )
@@ -25,7 +24,7 @@ class CustomUserManager(BaseUserManager):
 
         return user
     
-    def create_user(self, email, phonenumber=None, firstname=None, lastname=None, username=None, password=None, role="user", **extra_fields):
+    def create_user(self, email, phonenumber=None, fullname=None, username=None, password=None, role="user", **extra_fields):
 
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
@@ -33,15 +32,14 @@ class CustomUserManager(BaseUserManager):
         return self._create_user(
             email=email,
             phonenumber=phonenumber,
-            firstname=firstname,
-            lastname=lastname,
+            fullname=fullname,
             password=password,
             username=username,
             role=role,
             **extra_fields
         )
     
-    def create_superuser(self, email, phonenumber=None, firstname=None, lastname=None, username=None, password=None, role="admin", **extra_fields):
+    def create_superuser(self, email, phonenumber=None, fullname=None, username=None, password=None, role="admin", **extra_fields):
 
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -55,8 +53,7 @@ class CustomUserManager(BaseUserManager):
         return self._create_user(
             email=email,
             phonenumber=phonenumber,
-            firstname=firstname,
-            lastname=lastname,
+            fullname=fullname,
             password=password,
             username=username,
             role=role,
@@ -76,8 +73,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, null=False, blank=False)
     phonenumber = models.CharField(unique=True, null=True, blank=True, max_length=13)
     password = models.CharField(unique=False, blank=False, null=False, max_length=20)
-    firstname = models.CharField(unique=False, blank=True, null=True, max_length=100)
-    lastname = models.CharField(unique=False, blank=False, null=True, max_length=100)
+    fullname = models.CharField(unique=False, blank=True, null=True, max_length=100)
+    #lastname = models.CharField(unique=False, blank=False, null=True, max_length=100)
     username = models.CharField(unique=True, blank=True, null=True, max_length=100)
     role = models.CharField(unique=False, blank=True, null=True, choices=ROLE_CHOICES, default="user")
 
