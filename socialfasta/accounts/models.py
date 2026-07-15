@@ -104,3 +104,30 @@ class UserWallet(models.Model):
     def __str__(self):
         return f"wallet name {self.user.email} salio:{self.balance}"
     
+
+class WalletTransaction(models.Model):
+
+    TRANSACTION_TYPES = [
+
+        ('Deposit', 'Deposit amount (Add funds)'),
+        ('Order_Payment', 'Malipo ya Oda (SMM/SMS/PHONENUMBER)'),
+
+    ]
+
+    STATUS_CHOICES = [
+
+        ('Pending', 'Inasubiri'),
+        ('Success', 'Imekamilika'),
+        ('Failed', 'Imefeli')
+
+    ]
+
+    wallet = models.ForeignKey(UserWallet, on_delete=models.CASCADE, related_name="transactions")
+    transaction_type = models.CharField(max_length=50, choices=TRANSACTION_TYPES)
+    amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Kiasi (TSh)")
+    description = models.TextField(blank=True, null=True)
+    stutus = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Sucess')
+
+    def __str__(self):
+        return f"{self.wallet.user.email} | {self.transaction_type} | TZS {self.amount}"
+

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialFasta — Grow Your Socials & Verify Accounts at Fasta Speed</title>
+<meta name="description" content="SocialFasta — SMM Booster, Virtual SMS Verification Numbers (USA/Canada/UK) and Pre-made International TikTok Accounts. Fast, secure and trusted services for Africa's digital creators.">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sf-primary: #5B4FE5;
+    --sf-primary-dark: #4739C7;
+    --sf-primary-light: #EDEBFD;
+    --sf-primary-border: #D6D1FA;
+    --sf-accent: #F5540E;
+    --sf-accent-dark: #D4460A;
+    --sf-text: #0F172A;
+    --sf-bg-soft: #F8FAFC;
+    --sf-white: #FFFFFF;
+    --sf-border: #E2E8F0;
+    --sf-footer-bg: #0A0A0F;
+    --sf-radius-card: 10px;
+    --sf-radius-btn: 8px;
+    --sf-radius-badge: 6px;
+  }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    font-family: 'Inter', sans-serif;
+    color: var(--sf-text);
+    background-color: var(--sf-white);
+    padding-top: 74px;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, .display-heading{
+    font-family: 'Poppins', sans-serif;
+    color: var(--sf-text);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .btn{ border-radius: var(--sf-radius-btn) !important; }
+  .rounded-pill{ border-radius: var(--sf-radius-btn) !important; }
+  .badge.rounded-pill{ border-radius: var(--sf-radius-badge) !important; }
+
+  .text-primary-custom{ color: var(--sf-primary) !important; }
+  .text-accent-custom{ color: var(--sf-accent) !important; }
+  .bg-primary-custom{ background-color: var(--sf-primary) !important; }
+  .bg-soft{ background-color: var(--sf-bg-soft) !important; }
+
+  /* ---------- Navbar ---------- */
+  .navbar-sf{
+    background-color: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 rgba(15,23,42,0.06);
+    transition: box-shadow .2s ease;
+  }
+
+  .navbar-brand-sf{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+  }
+  .navbar-brand-sf span.brand-social{ color: var(--sf-primary); }
+  .navbar-brand-sf span.brand-fasta{ color: var(--sf-accent); }
+
+  .nav-link-sf{
+    font-weight: 500;
+    color: var(--sf-text) !important;
+    padding: 0.5rem 1rem !important;
+    position: relative;
+  }
+  .nav-link-sf::after{
+    content: "";
+    position: absolute;
+    left: 1rem; right: 1rem; bottom: 0.25rem;
+    height: 2px;
+    background: var(--sf-accent);
+    transform: scaleX(0);
+    transition: transform .2s ease;
+    transform-origin: left;
+  }
+  .nav-link-sf:hover::after{ transform: scaleX(1); }
+
+  .btn-sf-accent{
+    background-color: var(--sf-accent);
+    border-color: var(--sf-accent);
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 6px 16px rgba(249,115,22,0.28);
+  }
+  .btn-sf-accent:hover{
+    background-color: var(--sf-accent-dark);
+    border-color: var(--sf-accent-dark);
+    color: #fff;
+  }
+
+  .btn-sf-outline-primary{
+    border: 1.5px solid var(--sf-primary);
+    color: var(--sf-primary);
+    font-weight: 600;
+    background: transparent;
+  }
+  .btn-sf-outline-primary:hover{
+    background-color: var(--sf-primary);
+    color: #fff;
+  }
+
+  .btn-sf-login{
+    color: var(--sf-primary);
+    font-weight: 600;
+    border: none;
+  }
+  .btn-sf-login:hover{ color: var(--sf-primary-dark); }
+
+  /* ---------- Hero ---------- */
+  .hero-section{
+    background: linear-gradient(180deg, #FFFFFF 0%, var(--sf-bg-soft) 100%);
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-eyebrow{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--sf-primary-light);
+    color: var(--sf-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+    border: 1px solid var(--sf-primary-border);
+  }
+  .hero-headline{
+    font-size: clamp(1.9rem, 3.8vw, 3.1rem);
+    line-height: 1.12;
+    max-width: 560px;
+    letter-spacing: -0.025em;
+    min-height: 3.4em;
+  }
+  .hero-typing-cursor{
+    display: inline-block;
+    color: var(--sf-accent);
+    font-weight: 600;
+    margin-left: 2px;
+    animation: sf-cursor-blink 0.9s steps(1) infinite;
+  }
+  @keyframes sf-cursor-blink{
+    0%, 49%{ opacity: 1; }
+    50%, 100%{ opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-typing-cursor{ animation: none; opacity: 1; }
+  }
+  .hero-sub{
+    font-size: 1.15rem;
+    color: #475569;
+    max-width: 560px;
+  }
+  .hero-stats-strip{
+    border-top: 1px solid var(--sf-border);
+    padding-top: 1.5rem;
+  }
+  .hero-stat-number{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: var(--sf-primary);
+  }
+  .hero-stat-label{ font-size: 0.85rem; color: #64748B; }
+
+  .hero-visual-wrap{
+    position: relative;
+  }
+  .hero-blob{
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 90%; height: 90%;
+    background: radial-gradient(circle at 30% 30%, var(--sf-primary-light), transparent 60%);
+    z-index: 0;
+  }
+  .float-chip{
+    position: absolute;
+    background: #fff;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    box-shadow: 0 6px 14px rgba(15,23,42,0.08);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    animation: floaty 4s ease-in-out infinite;
+  }
+  .chip-followers{ top: 8%; left: -5%; animation-delay: 0s; }
+  .chip-sms{ bottom: 12%; left: -8%; animation-delay: 1.2s; }
+  .chip-verified{ top: 42%; right: -6%; animation-delay: 2s; }
+
+  @keyframes floaty{
+    0%, 100%{ transform: translateY(0px); }
+    50%{ transform: translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .float-chip{ animation: none; }
+  }
+
+  /* ---------- Section headers ---------- */
+  .section-eyebrow{
+    color: var(--sf-accent);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  .section-title{ font-size: clamp(1.6rem, 3vw, 2.3rem); }
+  .section-lead{ color: #475569; max-width: 640px; }
+
+  /* ---------- About / trust strip ---------- */
+  .trust-icon-wrap{
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background-color: var(--sf-primary-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sf-primary);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Service cards ---------- */
+  .service-card{
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    background-color: #fff;
+    padding: 2.2rem 1.8rem;
+    height: 100%;
+    transition: border-color .2s ease;
+    position: relative;
+  }
+  .service-card:hover{
+    border-color: var(--sf-primary);
+  }
+  .service-card.accent-top:hover{
+    border-color: var(--sf-accent);
+  }
+  .service-icon-badge{
+    width: 56px; height: 56px;
+    border-radius: var(--sf-radius-card);
+    background-color: var(--sf-primary);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .service-icon-badge.accent{ background-color: var(--sf-accent); }
+  .platform-icons i{
+    font-size: 1.3rem;
+    color: #64748B;
+  }
+  .service-guarantee{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background-color: #F0FDF4;
+    color: #15803D;
+    font-weight: 600;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 50px;
+    margin-top: 1rem;
+  }
+  .service-guarantee.risk-free{ background-color: #FFF7ED; color: var(--sf-accent-dark); }
+  .service-guarantee.instant{ background-color: var(--sf-primary-light); color: var(--sf-primary); }
+
+  /* ---------- Pricing ---------- */
+  .pricing-tabs .nav-link{
+    font-weight: 600;
+    color: #64748B;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-btn);
+    padding: 0.6rem 1.4rem;
+    margin: 0 0.35rem 0.6rem 0.35rem;
+  }
+  .pricing-tabs .nav-link.active{
+    background-color: var(--sf-primary);
+    color: #fff;
+    border-color: var(--sf-primary);
+  }
+  .pricing-card{
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    overflow: hidden;
+    background: #fff;
+  }
+  .table-sf{
+    margin-bottom: 0;
+  }
+  .table-sf thead th{
+    background-color: var(--sf-primary);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    padding: 1rem 1.25rem;
+    white-space: nowrap;
+  }
+  .table-sf tbody td{
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+    border-color: var(--sf-border);
+  }
+  .table-sf tbody tr:hover{ background-color: var(--sf-bg-soft); }
+  .price-tsh{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--sf-primary);
+  }
+  .badge-popular{ background-color: var(--sf-accent); color: #fff; }
+  .badge-refill{ background-color: #DBEAFE; color: #1D4ED8; }
+  .badge-nondrop{ background-color: var(--sf-primary-light); color: var(--sf-primary); }
+  .badge-riskfree{ background-color: #FFEDD5; color: var(--sf-accent-dark); }
+  .badge-instant{ background-color: #DCFCE7; color: #15803D; }
+
+  /* ---------- Affiliate / CTA band (full-width, matches reference) ---------- */
+  .cta-band{
+    background-color: var(--sf-primary);
+    color: #fff;
+    padding: 3.5rem 0;
+  }
+  .cta-band-eyebrow{
+    color: rgba(255,255,255,0.7);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+  .cta-band-title{
+    color: #fff;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin-bottom: 0.5rem;
+  }
+  .cta-band-text{
+    color: rgba(255,255,255,0.82);
+    max-width: 560px;
+    margin-bottom: 0;
+  }
+  .btn-sf-white{
+    background-color: #fff;
+    border: 1px solid #fff;
+    color: var(--sf-primary);
+    font-weight: 600;
+  }
+  .btn-sf-white:hover{
+    background-color: rgba(255,255,255,0.9);
+    color: var(--sf-primary-dark);
+  }
+  .btn-sf-outline-white{
+    background-color: transparent;
+    border: 1px solid rgba(255,255,255,0.55);
+    color: #fff;
+    font-weight: 600;
+  }
+  .btn-sf-outline-white:hover{
+    background-color: rgba(255,255,255,0.12);
+    border-color: #fff;
+    color: #fff;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer-sf{
+    background-color: var(--sf-footer-bg);
+    color: #94A3B8;
+  }
+  .footer-sf h6{
+    color: var(--sf-accent);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+  }
+  .footer-sf a{
+    color: #CBD5E1;
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+  .footer-sf a:hover{ color: var(--sf-accent); }
+  .footer-brand span.brand-social{ color: #fff; }
+  .footer-brand span.brand-fasta{ color: var(--sf-accent); }
+  .footer-social-icon{
+    width: 38px; height: 38px;
+    border-radius: var(--sf-radius-btn);
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+  .footer-social-icon:hover{ background: var(--sf-accent); }
+  .footer-bottom{
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ---------- Fixed floating WhatsApp button ---------- */
+  .whatsapp-fixed-btn{
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1050;
+    background-color: #25D366;
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 0.7rem 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.22);
+    text-decoration: none;
+  }
+  .whatsapp-fixed-btn:hover{ color: #fff !important; opacity: 0.92; }
+
+  section{ scroll-margin-top: 90px; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar navbar-expand-lg navbar-sf fixed-top py-3">
+  <div class="container">
+    <a class="navbar-brand navbar-brand-sf" href="#home">
+      <span class="brand-social">Social</span><span class="brand-fasta">Fasta</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSF" aria-controls="navbarSF" aria-expanded="false" aria-label="Toggle navigation menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSF">
+      <ul class="navbar-nav mx-auto mt-3 mt-lg-0 gap-lg-1 text-center">
+        <li class="nav-item"><a class="nav-link nav-link-sf" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-sf" href="#about">About Us</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-sf" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-sf" href="#pricing">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-sf" href="#affiliate">Affiliate</a></li>
+      </ul>
+      <div class="d-flex flex-column flex-lg-row align-items-center gap-2 mt-3 mt-lg-0">
+        <a href="#login" class="btn btn-sf-login px-3">Log In</a>
+        <a href="#signup" class="btn btn-sf-accent rounded-pill px-4 py-2">Get Started &rarr;</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO SECTION ============ -->
+<section id="home" class="hero-section py-5">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <span class="hero-eyebrow mb-3">
+          <i class="bi bi-lightning-charge-fill"></i> East Africa's #1 Growth Platform
+        </span>
+        <h1 class="hero-headline my-4"><span id="heroTypedText"></span><span class="hero-typing-cursor" aria-hidden="true">|</span></h1>
+        <p class="hero-sub mb-4">
+          SocialFasta brings together SMM Booster tools for Instagram, TikTok and YouTube with Virtual Numbers for USA, Canada &amp; UK account verification — all in one place, secure and priced fairly. Grow your socials, verify any account, monetize faster.
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-3 mb-5">
+          <a href="#signup" class="btn btn-sf-accent btn-lg rounded-pill px-4">Create Free Account</a>
+          <a href="#pricing" class="btn btn-sf-outline-primary btn-lg rounded-pill px-4">View Our Pricing</a>
+        </div>
+        <div class="row hero-stats-strip g-3">
+          <div class="col-4">
+            <div class="hero-stat-number">15,000+</div>
+            <div class="hero-stat-label">Orders Completed</div>
+          </div>
+          <div class="col-4">
+            <div class="hero-stat-number">3</div>
+            <div class="hero-stat-label">Number Countries (US/CA/UK)</div>
+          </div>
+          <div class="col-4">
+            <div class="hero-stat-number">24/7</div>
+            <div class="hero-stat-label">Delivery &amp; Support</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-visual-wrap px-3 px-lg-5">
+          <div class="hero-blob"></div>
+          <svg viewBox="0 0 520 460" xmlns="http://www.w3.org/2000/svg" class="w-100 position-relative" style="z-index:1;">
+            <defs>
+              <linearGradient id="phoneGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#5B4FE5"/>
+                <stop offset="100%" stop-color="#7A6FF0"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="260" cy="410" rx="180" ry="24" fill="#0F172A" opacity="0.06"/>
+            <rect x="150" y="40" width="220" height="360" rx="34" fill="url(#phoneGrad)"/>
+            <rect x="168" y="70" width="184" height="270" rx="10" fill="#F8FAFC"/>
+            <circle cx="260" cy="365" r="14" fill="#F8FAFC" opacity="0.6"/>
+            <rect x="188" y="92" width="90" height="10" rx="5" fill="#CBD5E1"/>
+            <rect x="188" y="112" width="140" height="8" rx="4" fill="#E2E8F0"/>
+            <rect x="188" y="140" width="144" height="60" rx="10" fill="#EDEBFD"/>
+            <polyline points="196,182 216,160 236,170 256,148 276,158 300,132 320,142" fill="none" stroke="#F5540E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="188" y="214" width="144" height="34" rx="9" fill="#fff" stroke="#E2E8F0"/>
+            <circle cx="204" cy="231" r="8" fill="#F5540E"/>
+            <rect x="220" y="225" width="80" height="6" rx="3" fill="#CBD5E1"/>
+            <rect x="220" y="235" width="55" height="6" rx="3" fill="#E2E8F0"/>
+            <rect x="188" y="258" width="144" height="34" rx="9" fill="#fff" stroke="#E2E8F0"/>
+            <circle cx="204" cy="275" r="8" fill="#5B4FE5"/>
+            <rect x="220" y="269" width="80" height="6" rx="3" fill="#CBD5E1"/>
+            <rect x="220" y="279" width="65" height="6" rx="3" fill="#E2E8F0"/>
+            <rect x="188" y="302" width="144" height="26" rx="13" fill="#F5540E"/>
+            <rect x="215" y="311" width="90" height="8" rx="4" fill="#ffffff" opacity="0.85"/>
+            <circle cx="90" cy="120" r="46" fill="#EDEBFD"/>
+            <path d="M90 100a20 20 0 100 40 20 20 0 000-40z" fill="none" stroke="#5B4FE5" stroke-width="4"/>
+            <path d="M78 122h24M90 110v24" stroke="#5B4FE5" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="440" cy="330" r="40" fill="#FFF7ED"/>
+            <path d="M424 330h32M440 314v32" stroke="#F5540E" stroke-width="4" stroke-linecap="round"/>
+            <rect x="404" y="70" width="86" height="54" rx="14" fill="#fff" stroke="#E2E8F0"/>
+            <text x="447" y="102" font-family="Poppins, sans-serif" font-size="18" font-weight="700" fill="#5B4FE5" text-anchor="middle">SMS</text>
+          </svg>
+          <div class="float-chip chip-followers">
+            <i class="bi bi-instagram text-danger fs-5"></i> +2,500 Followers
+          </div>
+          <div class="float-chip chip-sms">
+            <i class="bi bi-chat-dots-fill text-primary-custom fs-5"></i> Number Received
+          </div>
+          <div class="float-chip chip-verified">
+            <i class="bi bi-patch-check-fill text-success fs-5"></i> Account Verified
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT US SECTION ============ -->
+<section id="about" class="py-5 bg-soft">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <span class="section-eyebrow">About Us</span>
+        <h2 class="section-title mt-2 mb-3">One Platform Built for Africa's Digital Creators</h2>
+        <p class="section-lead mb-4">
+          SocialFasta was launched with one goal: to remove the barriers that hold back content creators and digital businesses across Africa. From social media growth to international account verification, we make sure every service is delivered with speed, security and total transparency.
+        </p>
+        <div class="d-flex gap-2">
+          <a href="#services" class="btn btn-sf-outline-primary rounded-pill px-4">See Our Services</a>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="row g-4">
+          <div class="col-sm-6">
+            <div class="d-flex gap-3">
+              <div class="trust-icon-wrap"><i class="bi bi-shield-check"></i></div>
+              <div>
+                <h5 class="mb-1 fs-6">Secure Payments</h5>
+                <p class="text-secondary small mb-0">An in-house wallet system that protects every transaction on your account.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex gap-3">
+              <div class="trust-icon-wrap"><i class="bi bi-lightning-charge"></i></div>
+              <div>
+                <h5 class="mb-1 fs-6">Fast Delivery</h5>
+                <p class="text-secondary small mb-0">Most orders begin processing within minutes of payment.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex gap-3">
+              <div class="trust-icon-wrap"><i class="bi bi-headset"></i></div>
+              <div>
+                <h5 class="mb-1 fs-6">24/7 Support</h5>
+                <p class="text-secondary small mb-0">Our WhatsApp support team is ready to help you anytime.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="d-flex gap-3">
+              <div class="trust-icon-wrap"><i class="bi bi-graph-up-arrow"></i></div>
+              <div>
+                <h5 class="mb-1 fs-6">Real Results</h5>
+                <p class="text-secondary small mb-0">Non-drop growth and accounts of verified, proven quality.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CORE SERVICES SECTION ============ -->
+<section id="services" class="py-5">
+  <div class="container py-5">
+    <div class="text-center mx-auto mb-5" style="max-width:640px;">
+      <span class="section-eyebrow">Our Services</span>
+      <h2 class="section-title mt-2 mb-3">Everything You Need to Grow Your Online Presence</h2>
+      <p class="section-lead mx-auto">Three core tools that help you grow, verify, and start earning faster.</p>
+    </div>
+    <div class="row g-4">
+
+      <!-- Card 1: SMM Booster -->
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon-badge"><i class="bi bi-graph-up-arrow"></i></div>
+          <h3 class="fs-4 mb-2">SMM Booster</h3>
+          <p class="text-secondary mb-3">Boost followers, likes and views on Instagram, TikTok and YouTube instantly, at affordable rates and premium quality.</p>
+          <div class="platform-icons d-flex gap-3 mb-3">
+            <i class="bi bi-instagram" title="Instagram"></i>
+            <i class="bi bi-tiktok" title="TikTok"></i>
+            <i class="bi bi-youtube" title="YouTube"></i>
+          </div>
+          <ul class="list-unstyled small text-secondary mb-2">
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Followers, Likes, Views &amp; Comments</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Delivery starts within minutes</li>
+            <li class="mb-0"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Live order tracking panel</li>
+          </ul>
+          <span class="service-guarantee"><i class="bi bi-arrow-repeat"></i> Non-Drop &amp; Refill Guarantee</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Virtual SMS Verification -->
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card accent-top">
+          <div class="service-icon-badge accent"><i class="bi bi-chat-dots-fill"></i></div>
+          <h3 class="fs-4 mb-2">Virtual SMS Verification</h3>
+          <p class="text-secondary mb-3">Get real numbers from the USA, Canada and UK to verify Gmail, YouTube, WhatsApp and other international accounts.</p>
+          <div class="platform-icons d-flex gap-3 mb-3 fs-4">
+            <span title="USA">🇺🇸</span>
+            <span title="Canada">🇨🇦</span>
+            <span title="United Kingdom">🇬🇧</span>
+          </div>
+          <ul class="list-unstyled small text-secondary mb-2">
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary-custom me-2"></i>A fresh number for every order</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Works with 30+ services and counting</li>
+            <li class="mb-0"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Automatic refund if no SMS arrives</li>
+          </ul>
+          <span class="service-guarantee risk-free"><i class="bi bi-shield-check"></i> No SMS, No Charge</span>
+        </div>
+      </div>
+
+      <!-- Card 3: International Accounts -->
+      <div class="col-md-6 col-lg-4 mx-auto mx-lg-0">
+        <div class="service-card">
+          <div class="service-icon-badge"><i class="bi bi-person-badge-fill"></i></div>
+          <h3 class="fs-4 mb-2">International Accounts</h3>
+          <p class="text-secondary mb-3">USA TikTok Beta accounts, ready for the Creator Fund and monetization, available to use today.</p>
+          <div class="platform-icons d-flex gap-3 mb-3">
+            <i class="bi bi-tiktok" title="TikTok Beta"></i>
+            <i class="bi bi-currency-dollar" title="Monetization"></i>
+            <span title="USA">🇺🇸</span>
+          </div>
+          <ul class="list-unstyled small text-secondary mb-2">
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary-custom me-2"></i>TikTok US Beta - Creator Fund Eligible</li>
+            <li class="mb-2"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Full email and login details included</li>
+            <li class="mb-0"><i class="bi bi-check2-circle text-primary-custom me-2"></i>Step-by-step account security guide</li>
+          </ul>
+          <span class="service-guarantee instant"><i class="bi bi-lightning-fill"></i> Instant Delivery</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING SECTION ============ -->
+<section id="pricing" class="py-5 bg-soft">
+  <div class="container py-5">
+    <div class="text-center mx-auto mb-5" style="max-width:640px;">
+      <span class="section-eyebrow">Our Pricing</span>
+      <h2 class="section-title mt-2 mb-3">Transparent Pricing, No Hidden Fees</h2>
+      <p class="section-lead mx-auto">Choose the package that fits you. All prices are listed in Tanzanian Shillings (TSh).</p>
+    </div>
+
+    <ul class="nav pricing-tabs justify-content-center mb-4" id="pricingTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="smm-tab" data-bs-toggle="tab" data-bs-target="#smm-pane" type="button" role="tab" aria-controls="smm-pane" aria-selected="true">SMM Pricing</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="sms-tab" data-bs-toggle="tab" data-bs-target="#sms-pane" type="button" role="tab" aria-controls="sms-pane" aria-selected="false">SMS Activation Pricing</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="accounts-tab" data-bs-toggle="tab" data-bs-target="#accounts-pane" type="button" role="tab" aria-controls="accounts-pane" aria-selected="false">TikTok Accounts</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+
+      <!-- SMM Pricing -->
+      <div class="tab-pane fade show active" id="smm-pane" role="tabpanel" aria-labelledby="smm-tab">
+        <div class="pricing-card">
+          <div class="table-responsive">
+            <table class="table table-sf mb-0">
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Min / Max Order</th>
+                  <th>Price (TSh / 1000)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><i class="bi bi-instagram text-danger me-2"></i>Instagram Followers</td>
+                  <td>100 / 50,000</td>
+                  <td class="price-tsh">6,500</td>
+                  <td><span class="badge badge-popular rounded-pill">Popular</span> <span class="badge badge-nondrop rounded-pill">Non-Drop</span></td>
+                </tr>
+                <tr>
+                  <td><i class="bi bi-instagram text-danger me-2"></i>Instagram Likes</td>
+                  <td>50 / 20,000</td>
+                  <td class="price-tsh">2,800</td>
+                  <td><span class="badge badge-refill rounded-pill">Refill Active</span></td>
+                </tr>
+                <tr>
+                  <td><i class="bi bi-tiktok me-2"></i>TikTok Followers</td>
+                  <td>100 / 100,000</td>
+                  <td class="price-tsh">5,900</td>
+                  <td><span class="badge badge-popular rounded-pill">Popular</span></td>
+                </tr>
+                <tr>
+                  <td><i class="bi bi-tiktok me-2"></i>TikTok Likes</td>
+                  <td>50 / 50,000</td>
+                  <td class="price-tsh">2,300</td>
+                  <td><span class="badge badge-refill rounded-pill">Refill Active</span></td>
+                </tr>
+                <tr>
+                  <td><i class="bi bi-tiktok me-2"></i>TikTok Views</td>
+                  <td>1,000 / 1,000,000</td>
+                  <td class="price-tsh">900</td>
+                  <td><span class="badge badge-nondrop rounded-pill">Instant Start</span></td>
+                </tr>
+                <tr>
+                  <td><i class="bi bi-youtube text-danger me-2"></i>YouTube Subscribers</td>
+                  <td>50 / 10,000</td>
+                  <td class="price-tsh">14,500</td>
+                  <td><span class="badge badge-nondrop rounded-pill">Non-Drop</span></td>
+                </tr>
+                <tr>
+                  <td><i class="bi bi-youtube text-danger me-2"></i>YouTube Views</td>
+                  <td>500 / 500,000</td>
+                  <td class="price-tsh">3,400</td>
+                  <td><span class="badge badge-refill rounded-pill">Refill Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMS Activation Pricing -->
+      <div class="tab-pane fade" id="sms-pane" role="tabpanel" aria-labelledby="sms-tab">
+        <div class="pricing-card">
+          <div class="table-responsive">
+            <table class="table table-sf mb-0">
+              <thead>
+                <tr>
+                  <th>Number Country</th>
+                  <th>Compatible Services</th>
+                  <th>Price per Number (TSh)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>🇺🇸 USA Number</td>
+                  <td>Gmail, YouTube, WhatsApp, Telegram</td>
+                  <td class="price-tsh">3,900</td>
+                  <td><span class="badge badge-popular rounded-pill">Popular</span> <span class="badge badge-riskfree rounded-pill">No SMS, No Charge</span></td>
+                </tr>
+                <tr>
+                  <td>🇨🇦 Canada Number</td>
+                  <td>Gmail, Facebook, Instagram</td>
+                  <td class="price-tsh">4,600</td>
+                  <td><span class="badge badge-riskfree rounded-pill">No SMS, No Charge</span></td>
+                </tr>
+                <tr>
+                  <td>🇬🇧 UK Number</td>
+                  <td>YouTube, Twitter/X, Discord</td>
+                  <td class="price-tsh">5,200</td>
+                  <td><span class="badge badge-riskfree rounded-pill">No SMS, No Charge</span></td>
+                </tr>
+                <tr>
+                  <td>🇺🇸 USA Number (Bulk 5+)</td>
+                  <td>Large-scale verification</td>
+                  <td class="price-tsh">3,300</td>
+                  <td><span class="badge badge-nondrop rounded-pill">Bulk Discount</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TikTok Accounts Pricing -->
+      <div class="tab-pane fade" id="accounts-pane" role="tabpanel" aria-labelledby="accounts-tab">
+        <div class="pricing-card">
+          <div class="table-responsive">
+            <table class="table table-sf mb-0">
+              <thead>
+                <tr>
+                  <th>Account Type</th>
+                  <th>Account Age</th>
+                  <th>Price (TSh)</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>🇺🇸 TikTok US Beta Account</td>
+                  <td>New (0-7 days)</td>
+                  <td class="price-tsh">45,000</td>
+                  <td><span class="badge badge-instant rounded-pill">Instant Delivery</span></td>
+                </tr>
+                <tr>
+                  <td>🇺🇸 TikTok US Beta Account</td>
+                  <td>30+ days, Creator Fund Ready</td>
+                  <td class="price-tsh">72,000</td>
+                  <td><span class="badge badge-popular rounded-pill">Popular</span> <span class="badge badge-instant rounded-pill">Instant Delivery</span></td>
+                </tr>
+                <tr>
+                  <td>🇺🇸 TikTok US Beta Account</td>
+                  <td>90+ days, Aged &amp; Warmed Up</td>
+                  <td class="price-tsh">115,000</td>
+                  <td><span class="badge badge-nondrop rounded-pill">Premium</span> <span class="badge badge-instant rounded-pill">Instant Delivery</span></td>
+                </tr>
+                <tr>
+                  <td>🇺🇸 TikTok US Beta Account</td>
+                  <td>Bulk Order (5+ accounts)</td>
+                  <td class="price-tsh">Starting at 65,000</td>
+                  <td><span class="badge badge-refill rounded-pill">Wholesale Rate</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ AFFILIATE PROGRAM CTA BAND ============ -->
+<section id="affiliate" class="cta-band">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <span class="cta-band-eyebrow">10% Lifetime Commission</span>
+        <h2 class="cta-band-title fw-bold mt-2">Refer Friends, Earn for Life</h2>
+        <p class="cta-band-text">
+          Invite friends who are interested, and earn 10% of every deposit they make into their wallet — for their entire lifetime. Every time they top up, you get paid straight into your own wallet, with no limit on time or number of referrals.
+        </p>
+      </div>
+      <div class="col-lg-4 d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+        <a href="#signup" class="btn btn-sf-white px-4 py-2">Get Your Link</a>
+        <a href="#services" class="btn btn-sf-outline-white px-4 py-2">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer-sf pt-5 pb-4">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <a href="#home" class="navbar-brand-sf footer-brand d-inline-block mb-3">
+          <span class="brand-social">Social</span><span class="brand-fasta">Fasta</span>
+        </a>
+        <p class="small mb-4" style="max-width: 320px;">
+          SMM growth, SMS verification and international accounts built for Africa's creators and businesses.
+        </p>
+        <div class="d-flex gap-2">
+          <a href="#" class="footer-social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="footer-social-icon"><i class="bi bi-tiktok"></i></a>
+          <a href="#" class="footer-social-icon"><i class="bi bi-telegram"></i></a>
+          <a href="#" class="footer-social-icon"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <h6 class="mb-3">Services</h6>
+        <ul class="list-unstyled small d-flex flex-column gap-2">
+          <li><a href="#services">SMM Booster</a></li>
+          <li><a href="#services">SMS Verification</a></li>
+          <li><a href="#services">TikTok Accounts</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <h6 class="mb-3">Account</h6>
+        <ul class="list-unstyled small d-flex flex-column gap-2">
+          <li><a href="#login">Log In</a></li>
+          <li><a href="#signup">Sign Up</a></li>
+          <li><a href="#affiliate">Affiliate Program</a></li>
+          <li><a href="#">Wallet</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <h6 class="mb-3">Support</h6>
+        <ul class="list-unstyled small d-flex flex-column gap-2">
+          <li><a href="mailto:info@socialfasta.com">info@socialfasta.com</a></li>
+          <li><a href="https://wa.me/255000000000" target="_blank" rel="noopener">WhatsApp Support</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-lg-2">
+        <h6 class="mb-3">Legal</h6>
+        <ul class="list-unstyled small d-flex flex-column gap-2">
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom mt-5 pt-4 text-center">
+      <p class="small mb-0">&copy; 2026 SocialFasta. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/255000000000" target="_blank" rel="noopener" class="whatsapp-fixed-btn">
+  <i class="bi bi-whatsapp fs-5"></i> WhatsApp
+</a>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Auto-close mobile navbar after clicking a link
+  document.addEventListener('DOMContentLoaded', function () {
+    var navLinks = document.querySelectorAll('#navbarSF .nav-link, #navbarSF .btn');
+    var navbarCollapseEl = document.getElementById('navbarSF');
+    var bsCollapse = new bootstrap.Collapse(navbarCollapseEl, { toggle: false });
+
+    navLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (navbarCollapseEl.classList.contains('show')) {
+          bsCollapse.hide();
+        }
+      });
+    });
+
+    // Navbar shadow on scroll
+    var nav = document.querySelector('.navbar-sf');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 10) {
+        nav.style.boxShadow = '0 4px 20px rgba(15,23,42,0.08)';
+      } else {
+        nav.style.boxShadow = '0 1px 0 rgba(15,23,42,0.06)';
+      }
+    });
+
+    // Hero headline typewriter — types and deletes each phrase, character by character
+    var heroPhrases = [
+      [
+        { text: 'Grow Your Socials & Receive SMS at ', accent: false },
+        { text: 'Fasta', accent: true },
+        { text: ' Speed!', accent: false }
+      ],
+      [
+        { text: 'Get Temporary International Phone Numbers for ', accent: false },
+        { text: 'US, UK & CN', accent: true },
+        { text: ' Verification', accent: false }
+      ]
+    ];
+
+    var heroEl = document.getElementById('heroTypedText');
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function renderPartial(segments, count) {
+      var remaining = count;
+      var html = '';
+      for (var i = 0; i < segments.length; i++) {
+        if (remaining <= 0) break;
+        var seg = segments[i];
+        var take = Math.min(remaining, seg.text.length);
+        var part = seg.text.slice(0, take);
+        html += seg.accent ? '<span class="text-accent-custom">' + part + '</span>' : part;
+        remaining -= take;
+      }
+      return html;
+    }
+
+    if (heroEl) {
+      if (prefersReducedMotion) {
+        heroEl.innerHTML = renderPartial(heroPhrases[0], heroPhrases[0].reduce(function (a, s) { return a + s.text.length; }, 0));
+      } else {
+        var phraseIndex = 0;
+        var charIndex = 0;
+        var isDeleting = false;
+
+        (function typeLoop() {
+          var phrase = heroPhrases[phraseIndex];
+          var fullLength = phrase.reduce(function (a, s) { return a + s.text.length; }, 0);
+
+          if (!isDeleting) {
+            charIndex++;
+            heroEl.innerHTML = renderPartial(phrase, charIndex);
+            if (charIndex >= fullLength) {
+              isDeleting = true;
+              setTimeout(typeLoop, 1900);
+              return;
+            }
+            setTimeout(typeLoop, 45);
+          } else {
+            charIndex--;
+            heroEl.innerHTML = renderPartial(phrase, charIndex);
+            if (charIndex <= 0) {
+              isDeleting = false;
+              phraseIndex = (phraseIndex + 1) % heroPhrases.length;
+              setTimeout(typeLoop, 400);
+              return;
+            }
+            setTimeout(typeLoop, 28);
+          }
+        })();
+      }
+    }
+  });
+</script>
+</body>
+</html>

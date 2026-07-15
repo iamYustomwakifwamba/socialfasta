@@ -11,6 +11,12 @@ def user_login_page(request):
 def user_registration_page(request):
     return render(request, "register.html")
 
+def dashboard_base_page(request):
+    return render(request, "dashboard_base.html")
+
+def landing_page(requset):
+    return render(requset, "landing_page.html")
+
 def user_login_api(request):
 
     if request.method == "POST":

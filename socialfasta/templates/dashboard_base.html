@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — SocialFasta</title>
+<meta name="description" content="Your SocialFasta dashboard — manage SMM orders, SMS verification numbers, wallet balance and account settings.">
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sf-primary: #5B4FE5;
+    --sf-primary-dark: #4739C7;
+    --sf-primary-light: #EDEBFD;
+    --sf-primary-border: #D6D1FA;
+    --sf-accent: #F5540E;
+    --sf-accent-dark: #D4460A;
+    --sf-text: #0F172A;
+    --sf-muted: #64748B;
+    --sf-bg-soft: #F8FAFC;
+    --sf-white: #FFFFFF;
+    --sf-border: #E2E8F0;
+    --sf-radius-card: 10px;
+    --sf-radius-btn: 8px;
+    --sf-sidebar-width: 264px;
+  }
+
+  body{
+    font-family: 'Inter', sans-serif;
+    color: var(--sf-text);
+    background-color: var(--sf-bg-soft);
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  a{ text-decoration: none; }
+  .btn{ border-radius: var(--sf-radius-btn) !important; }
+
+  .btn-sf-accent{
+    background-color: var(--sf-accent);
+    border-color: var(--sf-accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .btn-sf-accent:hover{
+    background-color: var(--sf-accent-dark);
+    border-color: var(--sf-accent-dark);
+    color: #fff;
+  }
+  .btn-sf-outline{
+    border: 1px solid var(--sf-border);
+    color: var(--sf-text);
+    font-weight: 600;
+    background: #fff;
+  }
+  .btn-sf-outline:hover{
+    border-color: var(--sf-primary);
+    background-color: var(--sf-primary-light);
+  }
+
+  /* ================= SIDEBAR ================= */
+  .sf-sidebar{
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sf-sidebar-width);
+    background-color: #fff;
+    border-right: 1px solid var(--sf-border);
+    display: flex;
+    flex-direction: column;
+    z-index: 1040;
+    transition: transform .25s ease;
+  }
+  .sf-sidebar-logo{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.35rem 1.5rem;
+    border-bottom: 1px solid var(--sf-border);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--sf-text);
+  }
+  .sf-sidebar-logo span.brand-fasta{ color: var(--sf-accent); }
+  .sf-sidebar-logo-icon{
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background-color: var(--sf-primary);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.95rem;
+  }
+
+  .sf-sidebar-nav{
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0.85rem;
+  }
+  .sf-nav-section-label{
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #94A3B8;
+    padding: 0.6rem 0.75rem 0.4rem;
+  }
+  .sf-nav-link{
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--sf-radius-btn);
+    color: #475569;
+    font-weight: 500;
+    font-size: 0.92rem;
+    margin-bottom: 2px;
+  }
+  .sf-nav-link i{ font-size: 1.05rem; width: 20px; text-align: center; }
+  .sf-nav-link:hover{
+    background-color: var(--sf-bg-soft);
+    color: var(--sf-text);
+  }
+  .sf-nav-link.active{
+    background-color: var(--sf-primary-light);
+    color: var(--sf-primary);
+    font-weight: 600;
+  }
+  .sf-nav-link .chevron{
+    margin-left: auto;
+    font-size: 0.8rem;
+    transition: transform .2s ease;
+  }
+  .sf-nav-link[aria-expanded="true"] .chevron{ transform: rotate(90deg); }
+
+  .sf-sidebar-footer{
+    border-top: 1px solid var(--sf-border);
+    padding: 0.85rem;
+  }
+  .sf-sidebar-footer .sf-nav-link{ font-size: 0.88rem; }
+  .sf-sidebar-phone{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.75rem;
+    color: #475569;
+    font-weight: 500;
+    font-size: 0.88rem;
+  }
+
+  /* ================= MAIN AREA ================= */
+  .sf-main{
+    margin-left: var(--sf-sidebar-width);
+    min-height: 100vh;
+  }
+
+  .sf-topbar{
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background-color: #fff;
+    border-bottom: 1px solid var(--sf-border);
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sf-topbar-user{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--sf-muted);
+    font-size: 0.92rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .sf-topbar-user:hover{ color: var(--sf-text); }
+  .sf-topbar-user-avatar{
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background-color: var(--sf-primary-light);
+    color: var(--sf-primary);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .sf-icon-btn{
+    width: 38px; height: 38px;
+    border-radius: var(--sf-radius-btn);
+    border: 1px solid var(--sf-border);
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sf-muted);
+    position: relative;
+  }
+  .sf-icon-btn:hover{ border-color: var(--sf-primary); color: var(--sf-primary); }
+  .sf-notif-dot{
+    position: absolute;
+    top: -6px; right: -6px;
+    background-color: var(--sf-accent);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+  }
+  .sf-notif-dot.d-none{ display: none; }
+
+  /* ---------- Notification dropdown panel ---------- */
+  .sf-notif-panel{
+    width: 350px;
+    max-width: 90vw;
+    padding: 0;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    box-shadow: 0 16px 40px rgba(15,23,42,0.14);
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .sf-notif-panel-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--sf-border);
+  }
+  .sf-notif-panel-header h6{
+    margin: 0;
+    font-size: 0.95rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+  }
+  .sf-notif-mark-all{
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--sf-primary);
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .sf-notif-mark-all:hover{ color: var(--sf-primary-dark); text-decoration: underline; }
+  .sf-notif-mark-all:disabled{ color: #94A3B8; cursor: not-allowed; text-decoration: none; }
+
+  .sf-notif-list{
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .sf-notif-item{
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--sf-border);
+    align-items: flex-start;
+  }
+  .sf-notif-item:last-child{ border-bottom: none; }
+  .sf-notif-item.unread{ background-color: var(--sf-primary-light); }
+  .sf-notif-icon{
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid var(--sf-border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--sf-primary);
+    font-size: 0.95rem;
+  }
+  .sf-notif-text{ flex: 1; min-width: 0; }
+  .sf-notif-title{
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--sf-text);
+    margin-bottom: 0.1rem;
+  }
+  .sf-notif-desc{
+    font-size: 0.8rem;
+    color: var(--sf-muted);
+    margin-bottom: 0.25rem;
+    line-height: 1.35;
+  }
+  .sf-notif-time{ font-size: 0.72rem; color: #94A3B8; }
+  .sf-notif-unread-dot{
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background-color: var(--sf-accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .sf-notif-empty{
+    padding: 2rem 1.1rem;
+    text-align: center;
+    color: var(--sf-muted);
+    font-size: 0.88rem;
+  }
+  .sf-notif-panel-footer{
+    padding: 0.7rem 1.1rem;
+    text-align: center;
+    border-top: 1px solid var(--sf-border);
+  }
+  .sf-notif-panel-footer a{
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--sf-primary);
+  }
+  .sf-notif-panel-footer a:hover{ color: var(--sf-primary-dark); }
+
+  /* ---------- Account modal ---------- */
+  .modal-content-sf{ border: none; border-radius: var(--sf-radius-card); }
+  .modal-header-sf{ border-bottom: 1px solid var(--sf-border); padding: 1.1rem 1.4rem; }
+  .modal-header-sf .modal-title{ font-size: 1.1rem; }
+  .modal-body-sf{ padding: 1.4rem; }
+  .modal-footer-sf{ border-top: 1px solid var(--sf-border); padding: 1rem 1.4rem; }
+
+  .account-modal-header{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .account-modal-avatar{
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background-color: var(--sf-primary-light);
+    color: var(--sf-primary);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .account-modal-name{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+  }
+  .account-modal-email{
+    font-size: 0.85rem;
+    color: var(--sf-muted);
+  }
+
+  .account-detail-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--sf-border);
+    font-size: 0.9rem;
+  }
+  .account-detail-row:last-child{ border-bottom: none; }
+  .account-detail-label{
+    color: var(--sf-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .account-detail-value{
+    font-weight: 600;
+    color: var(--sf-text);
+    text-align: right;
+  }
+
+  .badge-completed{
+    background-color: #DCFCE7;
+    color: #15803D;
+    font-weight: 600;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--sf-radius-btn);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .badge-not-verified{
+    background-color: #FEF3C7;
+    color: #B45309;
+    font-weight: 600;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--sf-radius-btn);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .account-balance-box{
+    background-color: var(--sf-bg-soft);
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-btn);
+    padding: 0.9rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  .account-balance-box .label{ font-size: 0.82rem; color: var(--sf-muted); }
+  .account-balance-box .value{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.15rem;
+    color: var(--sf-primary);
+  }
+
+  .sf-content{
+    padding: 2rem;
+  }
+
+  /* ---------- Verification section ---------- */
+  .sf-section-heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+  .sf-section-heading h6{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--sf-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+  .sf-section-fraction{
+    font-size: 0.82rem;
+    color: var(--sf-muted);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .sf-task-card{
+    background-color: #fff;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    padding: 1.1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  .sf-task-icon{
+    width: 42px; height: 42px;
+    flex-shrink: 0;
+    border-radius: var(--sf-radius-btn);
+    background-color: var(--sf-bg-soft);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sf-primary);
+    font-size: 1.1rem;
+  }
+  .sf-task-title{
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--sf-text);
+    margin-bottom: 0.15rem;
+  }
+  .sf-task-desc{
+    font-size: 0.85rem;
+    color: var(--sf-muted);
+    margin-bottom: 0;
+  }
+  .sf-task-action{ flex-shrink: 0; }
+  .text-not-started{
+    color: #94A3B8;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* ---------- Overview stat cards ---------- */
+  .sf-stat-card{
+    background-color: #fff;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    padding: 1.25rem 1.4rem;
+    height: 100%;
+  }
+  .sf-stat-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+  .sf-stat-label{
+    font-size: 0.85rem;
+    color: var(--sf-muted);
+    font-weight: 500;
+  }
+  .sf-stat-icon{
+    width: 32px; height: 32px;
+    border-radius: var(--sf-radius-btn);
+    background-color: var(--sf-primary-light);
+    color: var(--sf-primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .sf-stat-value{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 1.55rem;
+    color: var(--sf-text);
+  }
+  .sf-stat-delta{
+    font-size: 0.8rem;
+    color: var(--sf-muted);
+    margin-top: 0.3rem;
+  }
+  .sf-stat-delta.up{ color: #15803D; }
+  .sf-stat-delta.down{ color: var(--sf-accent-dark); }
+
+  /* ---------- Quick action cards ---------- */
+  .sf-quick-card{
+    background-color: #fff;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    padding: 1.25rem 1.4rem;
+    height: 100%;
+    transition: border-color .2s ease;
+  }
+  .sf-quick-card:hover{ border-color: var(--sf-primary); }
+  .sf-tag{
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--sf-radius-btn);
+    margin-bottom: 0.9rem;
+  }
+  .sf-tag-new{ background-color: var(--sf-primary-light); color: var(--sf-primary); }
+  .sf-tag-popular{ background-color: #FFEDD5; color: var(--sf-accent-dark); }
+  .sf-tag-instant{ background-color: #DCFCE7; color: #15803D; }
+  .sf-quick-title{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .sf-quick-desc{
+    font-size: 0.86rem;
+    color: var(--sf-muted);
+    margin-bottom: 0;
+  }
+
+  /* ---------- Recent orders table ---------- */
+  .sf-table-card{
+    background-color: #fff;
+    border: 1px solid var(--sf-border);
+    border-radius: var(--sf-radius-card);
+    overflow: hidden;
+  }
+  .table-sf-dash thead th{
+    background-color: var(--sf-bg-soft);
+    color: var(--sf-muted);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border: none;
+    padding: 0.85rem 1.25rem;
+  }
+  .table-sf-dash tbody td{
+    padding: 0.9rem 1.25rem;
+    vertical-align: middle;
+    border-color: var(--sf-border);
+    font-size: 0.9rem;
+  }
+  .table-sf-dash tbody tr:last-child td{ border-bottom: none; }
+  .table-sf-dash tbody tr:hover{ background-color: var(--sf-bg-soft); }
+
+  .status-pill{
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--sf-radius-btn);
+    display: inline-block;
+  }
+  .status-completed{ background-color: #DCFCE7; color: #15803D; }
+  .status-processing{ background-color: #FEF3C7; color: #B45309; }
+  .status-pending{ background-color: var(--sf-primary-light); color: var(--sf-primary); }
+
+  .service-icon-sm{
+    width: 32px; height: 32px;
+    border-radius: var(--sf-radius-btn);
+    background-color: var(--sf-bg-soft);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.95rem;
+    margin-right: 0.6rem;
+  }
+
+  /* ---------- Floating help bubble ---------- */
+  .sf-help-bubble{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background-color: var(--sf-primary);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 0.8rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    box-shadow: 0 10px 24px rgba(91,79,229,0.32);
+    z-index: 1050;
+    cursor: pointer;
+  }
+  .sf-help-bubble-icon{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .sf-help-bubble-text{ text-align: left; line-height: 1.2; }
+  .sf-help-bubble-text strong{ display: block; font-size: 0.85rem; }
+  .sf-help-bubble-text span{ font-size: 0.72rem; opacity: 0.8; }
+
+  /* ---------- Mobile sidebar ---------- */
+  .sf-sidebar-toggle{
+    display: none;
+  }
+  @media (max-width: 991.98px){
+    .sf-sidebar{ transform: translateX(-100%); }
+    .sf-sidebar.show{ transform: translateX(0); }
+    .sf-main{ margin-left: 0; }
+    .sf-sidebar-toggle{
+      display: flex;
+      width: 38px; height: 38px;
+      border-radius: var(--sf-radius-btn);
+      border: 1px solid var(--sf-border);
+      background: #fff;
+      align-items: center;
+      justify-content: center;
+      color: var(--sf-text);
+      margin-right: 0.75rem;
+    }
+    .sf-sidebar-backdrop{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.4);
+      z-index: 1035;
+    }
+    .sf-sidebar-backdrop.show{ display: block; }
+    .sf-content{ padding: 1.25rem; }
+    .sf-topbar{ padding: 0.85rem 1.25rem; }
+    .sf-notif-panel{ width: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+<aside class="sf-sidebar" id="sfSidebar">
+  <a href="dashboard.html" class="sf-sidebar-logo">
+    <span class="sf-sidebar-logo-icon"><i class="bi bi-lightning-charge-fill"></i></span>
+    Social<span class="brand-fasta">Fasta</span>
+  </a>
+
+  <nav class="sf-sidebar-nav">
+    <a href="#" class="sf-nav-link active"><i class="bi bi-grid-1x2-fill"></i> Overview</a>
+    <a href="#" class="sf-nav-link"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a href="#" class="sf-nav-link"><i class="bi bi-bar-chart-line"></i> Analytics</a>
+
+    <div class="sf-nav-section-label">Orders</div>
+    <a href="smm_orders.html" class="sf-nav-link"><i class="bi bi-graph-up-arrow"></i> SMM Orders</a>
+    <a href="sms_numbers.html" class="sf-nav-link"><i class="bi bi-chat-dots-fill"></i> SMS Numbers</a>
+    <a href="social_accounts.html" class="sf-nav-link"><i class="bi bi-person-badge-fill"></i> Social Accounts</a>
+
+    <div class="sf-nav-section-label">Wallet</div>
+    <a href="deposits.html" class="sf-nav-link"><i class="bi bi-wallet2"></i> Deposits</a>
+    <a href="#" class="sf-nav-link"><i class="bi bi-arrow-down-circle"></i> Withdrawals</a>
+    <a href="#" class="sf-nav-link"><i class="bi bi-people-fill"></i> Affiliate</a>
+
+    <div class="sf-nav-section-label">Configuration</div>
+    <a href="#" class="sf-nav-link"><i class="bi bi-code-slash"></i> Developer / API</a>
+    <a href="#" class="sf-nav-link"><i class="bi bi-gear-fill"></i> Settings</a>
+  </nav>
+
+  <div class="sf-sidebar-footer">
+    <a href="#" class="sf-nav-link"><i class="bi bi-file-earmark-text"></i> Docs</a>
+    <a href="#" class="sf-nav-link"><i class="bi bi-life-preserver"></i> Support Ticket</a>
+    <div class="sf-sidebar-phone"><i class="bi bi-telephone-fill"></i> +255 699 920 009</div>
+    <a href="index.html" class="sf-nav-link"><i class="bi bi-box-arrow-right"></i> Log out</a>
+  </div>
+</aside>
+
+<div class="sf-sidebar-backdrop" id="sfSidebarBackdrop"></div>
+
+<!-- ================= MAIN ================= -->
+<div class="sf-main">
+
+  <!-- Topbar -->
+  <div class="sf-topbar">
+    <div class="d-flex align-items-center">
+      <button class="sf-sidebar-toggle" id="sfSidebarToggle" aria-label="Toggle menu">
+        <i class="bi bi-list fs-5"></i>
+      </button>
+      <!-- Avatar+email upande wa kushoto sasa pia inafungua Account modal -->
+      <button class="sf-topbar-user" data-bs-toggle="modal" data-bs-target="#accountModal">
+        <span class="sf-topbar-user-avatar">YM</span>
+        yusto.mwakifwamba@gmail.com
+      </button>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <button class="sf-icon-btn" id="themeToggleBtn" aria-label="Toggle dark mode"><i class="bi bi-moon"></i></button>
+
+      <!-- ================= NOTIFICATION DROPDOWN ================= -->
+      <div class="dropdown">
+        <button class="sf-icon-btn" id="notifBtn" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+          <i class="bi bi-bell"></i>
+          <span class="sf-notif-dot" id="notifDot">3</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end sf-notif-panel p-0" aria-labelledby="notifBtn">
+          <div class="sf-notif-panel-header">
+            <h6>Notifications</h6>
+            <button type="button" class="sf-notif-mark-all" id="markAllReadBtn">Mark all as read</button>
+          </div>
+          <div class="sf-notif-list" id="notifList"><!-- Rows zinajazwa na JS --></div>
+          <div class="sf-notif-panel-footer">
+            <a href="#">View all notifications</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= ACCOUNT ICON ================= -->
+      <button class="sf-icon-btn" id="accountBtn" type="button" data-bs-toggle="modal" data-bs-target="#accountModal" aria-label="Account">
+        <i class="bi bi-person-fill"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="sf-content">
+
+    <h4 class="mb-1">Hello, Yusto. Welcome to SocialFasta.</h4>
+    <p class="text-secondary mb-4" style="max-width: 640px;">
+      Complete the steps below to secure your account and unlock full access to orders, withdrawals and the affiliate program.
+    </p>
+
+    <!-- Account Verification -->
+    <div class="sf-section-heading">
+      <h6>Account Verification</h6>
+      <span class="sf-section-fraction">1/2 <i class="bi bi-chevron-down"></i></span>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-shield-check"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Verify email &amp; phone</p>
+        <p class="sf-task-desc">Confirm your email address and phone number.</p>
+      </div>
+      <div class="sf-task-action">
+        <span class="badge-completed"><i class="bi bi-check-circle-fill"></i> Completed</span>
+      </div>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-person-vcard"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Verify your identity</p>
+        <p class="sf-task-desc">Submit your ID to unlock withdrawals and higher order limits.</p>
+      </div>
+      <div class="sf-task-action">
+        <a href="#" class="btn btn-sf-outline btn-sm px-3">Start <i class="bi bi-chevron-right small"></i></a>
+      </div>
+    </div>
+
+    <!-- Wallet & Payouts -->
+    <div class="sf-section-heading mt-4">
+      <h6>Wallet &amp; Payouts</h6>
+      <span class="sf-section-fraction">0/3 <i class="bi bi-chevron-down"></i></span>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-wallet2"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Add a payout method</p>
+        <p class="sf-task-desc">Add a mobile money wallet or bank account to receive affiliate payouts.</p>
+      </div>
+      <div class="sf-task-action">
+        <a href="#" class="btn btn-sf-outline btn-sm px-3">Set up <i class="bi bi-chevron-right small"></i></a>
+      </div>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-key-fill"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Set your withdrawal PIN</p>
+        <p class="sf-task-desc">Add an extra layer of protection before withdrawing funds.</p>
+      </div>
+      <div class="sf-task-action">
+        <span class="text-not-started">Not started</span>
+      </div>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-phone-fill"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Enable two-factor authentication</p>
+        <p class="sf-task-desc">Protect your account with an extra sign-in step.</p>
+      </div>
+      <div class="sf-task-action">
+        <a href="#" class="btn btn-sf-outline btn-sm px-3">Enable <i class="bi bi-chevron-right small"></i></a>
+      </div>
+    </div>
+
+    <!-- Overview stats -->
+    <div class="sf-section-heading mt-4">
+      <h6>Overview</h6>
+      <button class="sf-icon-btn" aria-label="Hide balances"><i class="bi bi-eye"></i></button>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Available Balance</span>
+            <span class="sf-stat-icon"><i class="bi bi-wallet2"></i></span>
+          </div>
+          <div class="sf-stat-value">TSh 42,500</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Total Spent</span>
+            <span class="sf-stat-icon"><i class="bi bi-graph-up-arrow"></i></span>
+          </div>
+          <div class="sf-stat-value">TSh 186,200</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Orders This Week</span>
+            <span class="sf-stat-icon"><i class="bi bi-bag-check"></i></span>
+          </div>
+          <div class="sf-stat-value">7</div>
+          <div class="sf-stat-delta up"><i class="bi bi-arrow-up-short"></i> 12.0% vs last week</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Active Orders</span>
+            <span class="sf-stat-icon"><i class="bi bi-hourglass-split"></i></span>
+          </div>
+          <div class="sf-stat-value">2</div>
+          <div class="sf-stat-delta">in progress</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="sf-quick-card">
+          <span class="sf-tag sf-tag-new">New</span>
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="sf-quick-title">SMM Booster</p>
+              <p class="sf-quick-desc">Boost followers, likes &amp; views on IG, TikTok, YouTube</p>
+            </div>
+            <i class="bi bi-arrow-up-right fs-5 text-secondary"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sf-quick-card">
+          <span class="sf-tag sf-tag-popular">Popular</span>
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="sf-quick-title">SMS Verification</p>
+              <p class="sf-quick-desc">Get a USA, Canada or UK number instantly</p>
+            </div>
+            <i class="bi bi-arrow-up-right fs-5 text-secondary"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sf-quick-card">
+          <span class="sf-tag sf-tag-instant">Instant</span>
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="sf-quick-title">TikTok Accounts</p>
+              <p class="sf-quick-desc">Buy a ready-to-monetize US TikTok account</p>
+            </div>
+            <i class="bi bi-arrow-up-right fs-5 text-secondary"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent orders -->
+    <div class="sf-section-heading">
+      <h6>Recent Orders</h6>
+      <a href="#" class="link-sf small fw-semibold" style="color:var(--sf-primary);">View all <i class="bi bi-arrow-right small"></i></a>
+    </div>
+
+    <div class="sf-table-card">
+      <div class="table-responsive">
+        <table class="table table-sf-dash mb-0">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Details</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-instagram text-danger"></i></span>Instagram Followers</td>
+              <td class="text-secondary">2,000 followers</td>
+              <td class="fw-semibold">TSh 13,000</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 11, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-chat-dots-fill" style="color:var(--sf-primary);"></i></span>USA SMS Number</td>
+              <td class="text-secondary">Gmail verification</td>
+              <td class="fw-semibold">TSh 3,900</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 10, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-tiktok"></i></span>TikTok Views</td>
+              <td class="text-secondary">50,000 views</td>
+              <td class="fw-semibold">TSh 45,000</td>
+              <td><span class="status-pill status-processing">Processing</span></td>
+              <td class="text-secondary">Jul 9, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-person-badge-fill" style="color:var(--sf-primary);"></i></span>TikTok US Beta Account</td>
+              <td class="text-secondary">30+ days, Creator Fund</td>
+              <td class="fw-semibold">TSh 72,000</td>
+              <td><span class="status-pill status-pending">Pending</span></td>
+              <td class="text-secondary">Jul 8, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-youtube text-danger"></i></span>YouTube Subscribers</td>
+              <td class="text-secondary">500 subscribers</td>
+              <td class="fw-semibold">TSh 7,250</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 6, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= ACCOUNT DETAILS MODAL ================= -->
+<div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-content-sf">
+      <div class="modal-header modal-header-sf">
+        <h5 class="modal-title" id="accountModalLabel">Account Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body modal-body-sf">
+        <div class="account-modal-header">
+          <div class="account-modal-avatar">YM</div>
+          <div>
+            <div class="account-modal-name">Yusto Mwakifwamba</div>
+            <div class="account-modal-email">yusto.mwakifwamba@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="account-detail-row">
+          <span class="account-detail-label"><i class="bi bi-envelope-check"></i> Email</span>
+          <span class="account-detail-value"><span class="badge-completed"><i class="bi bi-check-circle-fill"></i> Verified</span></span>
+        </div>
+        <div class="account-detail-row">
+          <span class="account-detail-label"><i class="bi bi-telephone"></i> Phone</span>
+          <span class="account-detail-value"><span class="badge-completed"><i class="bi bi-check-circle-fill"></i> Verified</span></span>
+        </div>
+        <div class="account-detail-row">
+          <span class="account-detail-label"><i class="bi bi-person-vcard"></i> Identity (KYC)</span>
+          <span class="account-detail-value"><span class="badge-not-verified"><i class="bi bi-exclamation-circle-fill"></i> Not Verified</span></span>
+        </div>
+        <div class="account-detail-row">
+          <span class="account-detail-label"><i class="bi bi-calendar3"></i> Member since</span>
+          <span class="account-detail-value">May 14, 2026</span>
+        </div>
+        <div class="account-detail-row">
+          <span class="account-detail-label"><i class="bi bi-shield-lock"></i> 2FA</span>
+          <span class="account-detail-value text-not-started">Not enabled</span>
+        </div>
+
+        <div class="account-balance-box">
+          <span class="label">Wallet Balance</span>
+          <span class="value">TSh 42,500</span>
+        </div>
+      </div>
+
+      <div class="modal-footer modal-footer-sf">
+        <a href="index.html" class="btn btn-sf-outline">
+          <i class="bi bi-box-arrow-right me-1"></i> Log Out
+        </a>
+        <a href="#" class="btn btn-sf-accent px-4">
+          <i class="bi bi-pencil-square me-1"></i> Edit Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating help bubble -->
+<button class="sf-help-bubble" type="button">
+  <span class="sf-help-bubble-icon"><i class="bi bi-headset"></i></span>
+  <span class="sf-help-bubble-text">
+    <strong>Need help?</strong>
+    <span>Chat with support</span>
+  </span>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ---------- Sidebar (mobile) ----------
+  var sidebar = document.getElementById('sfSidebar');
+  var backdrop = document.getElementById('sfSidebarBackdrop');
+  var toggleBtn = document.getElementById('sfSidebarToggle');
+
+  function closeSidebar(){
+    sidebar.classList.remove('show');
+    backdrop.classList.remove('show');
+  }
+
+  toggleBtn.addEventListener('click', function(){
+    sidebar.classList.toggle('show');
+    backdrop.classList.toggle('show');
+  });
+  backdrop.addEventListener('click', closeSidebar);
+
+  // ---------- Notifications data (badilisha na data kutoka Django/DB) ----------
+  var NOTIFICATIONS = [
+    { id: 1, icon: 'bi-check-circle-fill', title: 'Order Completed', desc: 'Your Instagram Followers order (2,000) has been delivered.', time: '2 hours ago', unread: true },
+    { id: 2, icon: 'bi-wallet2', title: 'Deposit Confirmed', desc: 'TSh 20,000 has been added to your wallet via M-Pesa.', time: '1 day ago', unread: true },
+    { id: 3, icon: 'bi-shield-exclamation', title: 'Verify Your Identity', desc: 'Submit your ID to unlock withdrawals and higher order limits.', time: '3 days ago', unread: true },
+    { id: 4, icon: 'bi-info-circle-fill', title: 'Scheduled Maintenance', desc: 'SocialFasta will undergo maintenance on Sunday, 2:00–4:00 AM.', time: '5 days ago', unread: false }
+  ];
+
+  var notifList     = document.getElementById('notifList');
+  var notifDot      = document.getElementById('notifDot');
+  var markAllReadBtn = document.getElementById('markAllReadBtn');
+
+  function updateNotifBadge() {
+    var unreadCount = NOTIFICATIONS.filter(function (n) { return n.unread; }).length;
+    if (unreadCount > 0) {
+      notifDot.textContent = unreadCount > 9 ? '9+' : String(unreadCount);
+      notifDot.classList.remove('d-none');
+      markAllReadBtn.disabled = false;
+    } else {
+      notifDot.classList.add('d-none');
+      markAllReadBtn.disabled = true;
+    }
+  }
+
+  function renderNotifications() {
+    if (NOTIFICATIONS.length === 0) {
+      notifList.innerHTML = '<div class="sf-notif-empty">Hakuna notifications kwa sasa.</div>';
+      return;
+    }
+    notifList.innerHTML = NOTIFICATIONS.map(function (n) {
+      return (
+        '<div class="sf-notif-item' + (n.unread ? ' unread' : '') + '" data-id="' + n.id + '">' +
+          '<div class="sf-notif-icon"><i class="bi ' + n.icon + '"></i></div>' +
+          '<div class="sf-notif-text">' +
+            '<div class="sf-notif-title">' + n.title + '</div>' +
+            '<div class="sf-notif-desc">' + n.desc + '</div>' +
+            '<div class="sf-notif-time">' + n.time + '</div>' +
+          '</div>' +
+          (n.unread ? '<div class="sf-notif-unread-dot"></div>' : '') +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  // Bofya notification moja moja -> iwe read
+  notifList.addEventListener('click', function (e) {
+    var item = e.target.closest('.sf-notif-item');
+    if (!item) return;
+    var id = parseInt(item.dataset.id, 10);
+    var notif = NOTIFICATIONS.find(function (n) { return n.id === id; });
+    if (notif) {
+      notif.unread = false;
+      renderNotifications();
+      updateNotifBadge();
+    }
+  });
+
+  // "Mark all as read"
+  markAllReadBtn.addEventListener('click', function () {
+    NOTIFICATIONS.forEach(function (n) { n.unread = false; });
+    renderNotifications();
+    updateNotifBadge();
+  });
+
+  renderNotifications();
+  updateNotifBadge();
+
+  // ---------- Theme toggle (placeholder - unaweza kuunganisha na dark mode halisi) ----------
+  document.getElementById('themeToggleBtn').addEventListener('click', function () {
+    var icon = this.querySelector('i');
+    var isDark = icon.classList.contains('bi-brightness-high-fill');
+    icon.className = isDark ? 'bi bi-moon' : 'bi bi-brightness-high-fill';
+    document.body.classList.toggle('sf-dark-mode');
+  });
+</script>
+</body>
+</html>
