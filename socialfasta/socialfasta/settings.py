@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'smm_engine',
+    'marketplace',
+    'sim_hub',
 ]
 
 MIDDLEWARE = [

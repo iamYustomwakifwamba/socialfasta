@@ -1,0 +1,150 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+
+{% block extra_link %}
+    <link rel="stylesheet" href="{% static 'css/accounts/wallet.css' %}">
+{% endblock extra_link %}
+
+{% block content %}
+
+<div class="sf-content">
+
+    <h4 class="mb-1">Wallet</h4>
+    <p class="text-secondary mb-4" style="max-width: 640px;">
+      Top up your wallet to order SMM boosts, SMS numbers, and international accounts instantly.
+    </p>
+
+    <!-- Full-width balance card -->
+    <div class="sf-balance-card">
+      <div class="sf-balance-left">
+        <div class="sf-balance-label"><i class="bi bi-wallet2"></i> Available Balance</div>
+        <div class="sf-balance-value" id="walletBalanceValue">TSh 42,500</div>
+        <div class="sf-balance-sub">Last deposit: Jul 10, 2026</div>
+      </div>
+      <div class="sf-balance-right">
+        <button type="button" class="btn btn-balance-ghost px-3 py-2" data-bs-toggle="modal" data-bs-target="#depositModal" id="openDepositModalGhost">
+          <i class="bi bi-clock-history me-1"></i> History
+        </button>
+        <button type="button" class="btn btn-sf-accent px-4 py-2" data-bs-toggle="modal" data-bs-target="#depositModal">
+          <i class="bi bi-plus-circle me-1"></i> Deposit
+        </button>
+      </div>
+    </div>
+
+    <!-- Recent deposits -->
+    <div class="sf-section-heading">
+      <h6>Recent Deposits</h6>
+      <a href="#" class="link-sf small fw-semibold" style="color:var(--sf-primary);">View all <i class="bi bi-arrow-right small"></i></a>
+    </div>
+
+    <div class="sf-table-card">
+      <div class="table-responsive">
+        <table class="table table-sf-dash mb-0">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Reference</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="depositsTableBody">
+            <tr>
+              <td><span class="method-icon-sm"><i class="bi bi-phone-fill" style="color:#15803D;"></i></span>M-Pesa</td>
+              <td class="text-secondary">DEP-88213</td>
+              <td class="fw-semibold">TSh 20,000</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 10, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="method-icon-sm"><i class="bi bi-phone-fill" style="color:#D4460A;"></i></span>Tigo Pesa</td>
+              <td class="text-secondary">DEP-88190</td>
+              <td class="fw-semibold">TSh 15,000</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 6, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="method-icon-sm"><i class="bi bi-bank" style="color:var(--sf-primary);"></i></span>Bank Transfer</td>
+              <td class="text-secondary">DEP-88072</td>
+              <td class="fw-semibold">TSh 50,000</td>
+              <td><span class="status-pill status-processing">Processing</span></td>
+              <td class="text-secondary">Jul 2, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="depositModal" tabindex="-1" aria-labelledby="depositModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-content-sf">
+      <div class="modal-header modal-header-sf">
+        <h5 class="modal-title" id="depositModalLabel">Deposit Funds</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form id="depositForm" novalidate>
+        <div class="modal-body modal-body-sf">
+
+          <!-- Alert moja ya pamoja - sawa na login/otp/register -->
+          <div id="depositAlert" class="auth-alert d-none" role="alert"></div>
+
+          <label class="form-label-sf">Deposit method</label>
+          <div class="row g-2 mb-3">
+            <div class="col-4">
+              <label class="method-option" data-method="mpesa">
+                <input type="radio" name="depositMethod" value="mpesa" class="d-none" checked>
+                <i class="bi bi-phone-fill"></i> M-Pesa
+              </label>
+            </div>
+            <div class="col-4">
+              <label class="method-option" data-method="tigopesa">
+                <input type="radio" name="depositMethod" value="tigopesa" class="d-none">
+                <i class="bi bi-phone-fill"></i> Tigo Pesa
+              </label>
+            </div>
+            <div class="col-4">
+              <label class="method-option" data-method="bank">
+                <input type="radio" name="depositMethod" value="bank" class="d-none">
+                <i class="bi bi-bank"></i> Bank
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-1">
+            <label for="depositAmount" class="form-label-sf">Amount (TSh)</label>
+            <input type="number" min="1000" step="500" class="form-control form-control-sf" id="depositAmount" placeholder="e.g. 20000">
+          </div>
+          <div class="amount-quick-row mb-3">
+            <button type="button" class="amount-quick-btn" data-amount="5000">5,000</button>
+            <button type="button" class="amount-quick-btn" data-amount="10000">10,000</button>
+            <button type="button" class="amount-quick-btn" data-amount="20000">20,000</button>
+            <button type="button" class="amount-quick-btn" data-amount="50000">50,000</button>
+          </div>
+
+          <div class="mb-1" id="phoneFieldWrap">
+            <label for="depositPhone" class="form-label-sf">Phone number</label>
+            <input type="tel" class="form-control form-control-sf" id="depositPhone" placeholder="+255 6XX XXX XXX">
+          </div>
+
+        </div>
+
+        <div class="modal-footer modal-footer-sf">
+          <button type="button" class="btn btn-sf-outline" style="border:1px solid var(--sf-border); color:var(--sf-text);" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-sf-accent px-4" id="depositSubmitBtn">
+            <span class="btn-label">Confirm Deposit</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/accounts/wallet.js' %}"></script>
+{% endblock content %}

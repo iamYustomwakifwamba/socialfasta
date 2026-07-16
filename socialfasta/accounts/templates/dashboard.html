@@ -1,0 +1,228 @@
+
+{% extends "dashboard_base.html" %}
+
+{% block content %}
+
+    <div class="sf-content">
+
+    <h4 class="mb-1">Hello, Yusto. Welcome to SocialFasta.</h4>
+    <p class="text-secondary mb-4" style="max-width: 640px;">
+      Complete the steps below to secure your account and unlock full access to orders, withdrawals and the affiliate program.
+    </p>
+
+    <!-- Account Verification -->
+    <div class="sf-section-heading">
+      <h6>Account Verification</h6>
+      <span class="sf-section-fraction">1/2 <i class="bi bi-chevron-down"></i></span>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-shield-check"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Verify email &amp; phone</p>
+        <p class="sf-task-desc">Confirm your email address and phone number.</p>
+      </div>
+      <div class="sf-task-action">
+        <span class="badge-completed"><i class="bi bi-check-circle-fill"></i> Completed</span>
+      </div>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-person-vcard"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Verify your identity</p>
+        <p class="sf-task-desc">Submit your ID to unlock withdrawals and higher order limits.</p>
+      </div>
+      <div class="sf-task-action">
+        <a href="#" class="btn btn-sf-outline btn-sm px-3">Start <i class="bi bi-chevron-right small"></i></a>
+      </div>
+    </div>
+
+    <!-- Wallet & Payouts -->
+    <div class="sf-section-heading mt-4">
+      <h6>Wallet &amp; Payouts</h6>
+      <span class="sf-section-fraction">0/3 <i class="bi bi-chevron-down"></i></span>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-wallet2"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Add a payout method</p>
+        <p class="sf-task-desc">Add a mobile money wallet or bank account to receive affiliate payouts.</p>
+      </div>
+      <div class="sf-task-action">
+        <a href="#" class="btn btn-sf-outline btn-sm px-3">Set up <i class="bi bi-chevron-right small"></i></a>
+      </div>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-key-fill"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Set your withdrawal PIN</p>
+        <p class="sf-task-desc">Add an extra layer of protection before withdrawing funds.</p>
+      </div>
+      <div class="sf-task-action">
+        <span class="text-not-started">Not started</span>
+      </div>
+    </div>
+
+    <div class="sf-task-card">
+      <div class="sf-task-icon"><i class="bi bi-phone-fill"></i></div>
+      <div class="flex-grow-1">
+        <p class="sf-task-title">Enable two-factor authentication</p>
+        <p class="sf-task-desc">Protect your account with an extra sign-in step.</p>
+      </div>
+      <div class="sf-task-action">
+        <a href="#" class="btn btn-sf-outline btn-sm px-3">Enable <i class="bi bi-chevron-right small"></i></a>
+      </div>
+    </div>
+
+    <!-- Overview stats -->
+    <div class="sf-section-heading mt-4">
+      <h6>Overview</h6>
+      <button class="sf-icon-btn" aria-label="Hide balances"><i class="bi bi-eye"></i></button>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Available Balance</span>
+            <span class="sf-stat-icon"><i class="bi bi-wallet2"></i></span>
+          </div>
+          <div class="sf-stat-value">TSh 42,500</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Total Spent</span>
+            <span class="sf-stat-icon"><i class="bi bi-graph-up-arrow"></i></span>
+          </div>
+          <div class="sf-stat-value">TSh 186,200</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Orders This Week</span>
+            <span class="sf-stat-icon"><i class="bi bi-bag-check"></i></span>
+          </div>
+          <div class="sf-stat-value">7</div>
+          <div class="sf-stat-delta up"><i class="bi bi-arrow-up-short"></i> 12.0% vs last week</div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="sf-stat-card">
+          <div class="sf-stat-top">
+            <span class="sf-stat-label">Active Orders</span>
+            <span class="sf-stat-icon"><i class="bi bi-hourglass-split"></i></span>
+          </div>
+          <div class="sf-stat-value">2</div>
+          <div class="sf-stat-delta">in progress</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="sf-quick-card">
+          <span class="sf-tag sf-tag-new">New</span>
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="sf-quick-title">SMM Booster</p>
+              <p class="sf-quick-desc">Boost followers, likes &amp; views on IG, TikTok, YouTube</p>
+            </div>
+            <i class="bi bi-arrow-up-right fs-5 text-secondary"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sf-quick-card">
+          <span class="sf-tag sf-tag-popular">Popular</span>
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="sf-quick-title">SMS Verification</p>
+              <p class="sf-quick-desc">Get a USA, Canada or UK number instantly</p>
+            </div>
+            <i class="bi bi-arrow-up-right fs-5 text-secondary"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="sf-quick-card">
+          <span class="sf-tag sf-tag-instant">Instant</span>
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="sf-quick-title">TikTok Accounts</p>
+              <p class="sf-quick-desc">Buy a ready-to-monetize US TikTok account</p>
+            </div>
+            <i class="bi bi-arrow-up-right fs-5 text-secondary"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent orders -->
+    <div class="sf-section-heading">
+      <h6>Recent Orders</h6>
+      <a href="#" class="link-sf small fw-semibold" style="color:var(--sf-primary);">View all <i class="bi bi-arrow-right small"></i></a>
+    </div>
+
+    <div class="sf-table-card">
+      <div class="table-responsive">
+        <table class="table table-sf-dash mb-0">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Details</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-instagram text-danger"></i></span>Instagram Followers</td>
+              <td class="text-secondary">2,000 followers</td>
+              <td class="fw-semibold">TSh 13,000</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 11, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-chat-dots-fill" style="color:var(--sf-primary);"></i></span>USA SMS Number</td>
+              <td class="text-secondary">Gmail verification</td>
+              <td class="fw-semibold">TSh 3,900</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 10, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-tiktok"></i></span>TikTok Views</td>
+              <td class="text-secondary">50,000 views</td>
+              <td class="fw-semibold">TSh 45,000</td>
+              <td><span class="status-pill status-processing">Processing</span></td>
+              <td class="text-secondary">Jul 9, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-person-badge-fill" style="color:var(--sf-primary);"></i></span>TikTok US Beta Account</td>
+              <td class="text-secondary">30+ days, Creator Fund</td>
+              <td class="fw-semibold">TSh 72,000</td>
+              <td><span class="status-pill status-pending">Pending</span></td>
+              <td class="text-secondary">Jul 8, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-youtube text-danger"></i></span>YouTube Subscribers</td>
+              <td class="text-secondary">500 subscribers</td>
+              <td class="fw-semibold">TSh 7,250</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 6, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock content %}

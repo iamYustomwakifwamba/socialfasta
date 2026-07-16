@@ -1,0 +1,173 @@
+{% extends "dashboard_base.html" %}
+{% load static %}
+
+{% block extra_link %}
+    <link rel="stylesheet" href="{% static "css/smm/orders.css" %}">
+{% endblock extra_link %}
+
+{% block content %}
+
+
+<div class="sf-content">
+
+    <div class="sf-section-heading">
+      <div>
+        <h4 class="mb-1">SMM Orders</h4>
+        <p class="text-secondary mb-0">Order growth services and track delivery status.</p>
+      </div>
+      <button type="button" class="btn btn-sf-accent px-4 py-2" data-bs-toggle="modal" data-bs-target="#newOrderModal">
+        <i class="bi bi-plus-circle me-1"></i> New Order
+      </button>
+    </div>
+
+    <!-- Filter pills -->
+    <div class="d-flex gap-2 mb-3 flex-wrap">
+      <button class="order-filter-pill active" type="button">All</button>
+      <button class="order-filter-pill" type="button">Processing</button>
+      <button class="order-filter-pill" type="button">Completed</button>
+      <button class="order-filter-pill" type="button">Pending</button>
+      <button class="order-filter-pill" type="button">Cancelled</button>
+    </div>
+
+    <!-- Orders table -->
+    <div class="sf-table-card">
+      <div class="table-responsive">
+        <table class="table table-sf-dash mb-0">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Link</th>
+              <th>Quantity</th>
+              <th>Charge</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-instagram text-danger"></i></span>Instagram Followers</td>
+              <td><a href="#" class="order-link-cell" title="instagram.com/yusto.m">instagram.com/yusto.m</a></td>
+              <td class="text-secondary">2,000</td>
+              <td class="fw-semibold">TSh 13,000</td>
+              <td><span class="status-pill status-completed">Completed</span></td>
+              <td class="text-secondary">Jul 11, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-tiktok"></i></span>TikTok Views</td>
+              <td><a href="#" class="order-link-cell" title="tiktok.com/@yusto.m/video/12345">tiktok.com/@yusto.m/video/12345</a></td>
+              <td class="text-secondary">50,000</td>
+              <td class="fw-semibold">TSh 10,000</td>
+              <td><span class="status-pill status-processing">Processing</span></td>
+              <td class="text-secondary">Jul 9, 2026</td>
+            </tr>
+            <tr>
+              <td><span class="service-icon-sm"><i class="bi bi-youtube text-danger"></i></span>YouTube Subscribers</td>
+              <td><a href="#" class="order-link-cell" title="youtube.com/@yustom">youtube.com/@yustom</a></td>
+              <td class="text-secondary">500</td>
+              <td class="fw-semibold">TSh 7,500</td>
+              <td><span class="status-pill status-inprogress">In Progress</span></td>
+              <td class="text-secondary">Jul 6, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="newOrderModal" tabindex="-1" aria-labelledby="newOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modal-content-sf">
+      <div class="modal-header modal-header-sf">
+        <h5 class="modal-title" id="newOrderModalLabel">New SMM Order</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form id="newOrderForm" novalidate>
+        <div class="modal-body modal-body-sf">
+
+          <!-- Alert moja ya pamoja - sawa na login/otp/register/deposit -->
+          <div id="orderAlert" class="auth-alert d-none" role="alert"></div>
+
+          <label class="form-label-sf">Platform</label>
+          <div class="row g-2 mb-3" id="platformPicker">
+            <div class="col-3">
+              <label class="method-option" data-platform="instagram">
+                <input type="radio" name="platform" value="instagram" checked>
+                <i class="bi bi-instagram"></i> Instagram
+              </label>
+            </div>
+            <div class="col-3">
+              <label class="method-option" data-platform="tiktok">
+                <input type="radio" name="platform" value="tiktok">
+                <i class="bi bi-tiktok"></i> TikTok
+              </label>
+            </div>
+            <div class="col-3">
+              <label class="method-option" data-platform="youtube">
+                <input type="radio" name="platform" value="youtube">
+                <i class="bi bi-youtube"></i> YouTube
+              </label>
+            </div>
+            <div class="col-3">
+              <label class="method-option" data-platform="facebook">
+                <input type="radio" name="platform" value="facebook">
+                <i class="bi bi-facebook"></i> Facebook
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="serviceSelect" class="form-label-sf">Service</label>
+            <select class="form-select form-select-sf" id="serviceSelect"></select>
+            <p class="field-hint" id="serviceHint"></p>
+          </div>
+
+          <div class="mb-3">
+            <label for="orderLink" class="form-label-sf">Link (profile / post URL)</label>
+            <input type="url" class="form-control form-control-sf" id="orderLink" placeholder="https://instagram.com/yourusername">
+          </div>
+
+          <div class="mb-1">
+            <label for="orderQuantity" class="form-label-sf">Quantity</label>
+            <input type="number" class="form-control form-control-sf" id="orderQuantity" placeholder="e.g. 1000">
+            <p class="field-hint" id="quantityHint"></p>
+          </div>
+
+          <div class="order-summary-box">
+            <div class="order-summary-row">
+              <span>Rate per 1,000</span>
+              <span class="value" id="summaryRate">TSh 0</span>
+            </div>
+            <div class="order-summary-row">
+              <span>Quantity</span>
+              <span class="value" id="summaryQty">0</span>
+            </div>
+            <div class="order-summary-total">
+              <span>Total Charge</span>
+              <span class="value" id="summaryTotal">TSh 0</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer modal-footer-sf">
+          <button type="button" class="btn btn-sf-outline" style="border:1px solid var(--sf-border); color:var(--sf-text);" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-sf-accent px-4" id="orderSubmitBtn">
+            <span class="btn-label">Place Order</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/smm/orders.js' %}"></script>
+
+
+    
+
+{% endblock content %}

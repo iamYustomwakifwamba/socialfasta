@@ -108,6 +108,13 @@ def user_registration_api(request):
         "message": "POST only"
     })
 
+def user_dashboard_page(request):
+    return render(request, "dashboard.html")
+
+def user_wallet_page(request):
+    return render(request, "wallet.html")
+
+
         
         
         
