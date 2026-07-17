@@ -78,9 +78,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     #lastname = models.CharField(unique=False, blank=False, null=True, max_length=100)
     username = models.CharField(unique=True, blank=True, null=True, max_length=100)
     role = models.CharField(unique=False, blank=True, null=True, choices=ROLE_CHOICES, default="user")
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     #Extra Fields
-
+    email_verified = models.BooleanField(default=False)
+    phone_verified = models.BooleanField(default=False)
+    kyc_verified = models.BooleanField(default=False)
+    two_fa_enabled = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

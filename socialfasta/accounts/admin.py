@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, UserWallet
 
 
 @admin.register(CustomUser)
@@ -60,3 +60,12 @@ class CustomUserAdmin(UserAdmin):
             ),
         }),
     )
+
+all_custom_models = [
+
+    UserWallet
+
+]
+
+for table in all_custom_models:
+    admin.site.register(table)

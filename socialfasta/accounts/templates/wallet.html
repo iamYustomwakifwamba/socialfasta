@@ -1,9 +1,12 @@
 {% extends "dashboard_base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block extra_link %}
     <link rel="stylesheet" href="{% static 'css/accounts/wallet.css' %}">
 {% endblock extra_link %}
+
+{% block nav_deposits %}active{% endblock %}
 
 {% block content %}
 
@@ -18,7 +21,7 @@
     <div class="sf-balance-card">
       <div class="sf-balance-left">
         <div class="sf-balance-label"><i class="bi bi-wallet2"></i> Available Balance</div>
-        <div class="sf-balance-value" id="walletBalanceValue">TSh 42,500</div>
+        <div class="sf-balance-value" id="walletBalanceValue">TSh {{user_wallet.balance|intcomma}}</div>
         <div class="sf-balance-sub">Last deposit: Jul 10, 2026</div>
       </div>
       <div class="sf-balance-right">

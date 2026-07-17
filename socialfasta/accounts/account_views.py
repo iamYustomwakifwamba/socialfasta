@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import CustomUser
+from .models import CustomUser, UserWallet
+from django.contrib.auth.decorators import login_required
 
 def user_login_page(request):
     return render(request, "login.html")
@@ -78,6 +79,12 @@ def user_registration_api(request):
                 "success": False,
                 "message": "Email hii tayari imesajiliwa."
             })
+        
+        if CustomUser.objects.filter(phonenumber=phonenumber).exists():
+            return JsonResponse({
+                "success": False,
+                "message": "Namba ya simu hii tayari imesajiliwa."
+            })
 
         if CustomUser.objects.filter(username=username).exists():
             return JsonResponse({
@@ -91,12 +98,19 @@ def user_registration_api(request):
                 password=password,
                 username=username,
                 fullname=fullname,
-                phonenumber=phonenumber
+                phonenumber=phonenumber,
+                email_verified=True,
+                phone_verified=True,
             )
-        except Exception:
+            
+            UserWallet.objects.create(user=new_user)
+
+        except Exception as e:
+            #import traceback
+            #traceback.print_exc()
             return JsonResponse({
                 "success": False,
-                "message": "Imeshindikana kuunda akaunti. Jaribu tena."
+                "message": f"Imeshindikana kuunda akaunti. Jaribu tena.{e}"
             })
 
         return JsonResponse({
@@ -108,11 +122,27 @@ def user_registration_api(request):
         "message": "POST only"
     })
 
+@login_required
 def user_dashboard_page(request):
-    return render(request, "dashboard.html")
+    user = request.user
 
+    context = {
+        "user":user
+    }
+
+    return render(request, "dashboard.html", context)
+
+@login_required
 def user_wallet_page(request):
-    return render(request, "wallet.html")
+    user = request.user
+    user_wallet, created = UserWallet.objects.get_or_create(
+        user=user,
+        defaults={"balance": 0}
+    )
+    context = {
+        "user_wallet":user_wallet
+    }
+    return render(request, "wallet.html", context)
 
 
         

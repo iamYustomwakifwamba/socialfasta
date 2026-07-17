@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'smm_engine',
     'marketplace',
     'sim_hub',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [
