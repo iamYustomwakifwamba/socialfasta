@@ -145,6 +145,10 @@ def user_wallet_page(request):
     return render(request, "wallet.html", context)
 
 
+def deposit_new_fund_api(request):
+    pass
+
+
         
         
         

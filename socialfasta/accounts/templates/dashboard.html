@@ -1,7 +1,12 @@
 
 {% extends "dashboard_base.html" %}
+{% load static %}
 
 {% block nav_overview %}active{% endblock %}
+
+{% block extra_link %}
+  <link rel="stylesheet" href="{% static 'css/accounts/dashboard.css' %}"
+{% endblock extra_link %}
 
 {% block content %}
 
